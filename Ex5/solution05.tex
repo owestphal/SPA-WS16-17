@@ -38,7 +38,7 @@
 $$val_{\delta}(x):=\delta (x)$$
 $$val_{\delta}(z):=[z,z]$$
 $$val_{\delta}(a_1/a_2):=val_{\delta}(a_1) \oslash val_{\delta}(a_2)$$
-$$[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$$
+$$[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$$
 \subsection*{b)}
 To show:
 $$\text{If: }x_1 \sqsubseteq x_2 \text{ than also } \varphi_l(\delta)(x_1) \sqsubseteq \varphi_l(\delta)(x_2)$$
@@ -57,9 +57,9 @@ We have four cases to show for:
 \]
 \begin{itemize}
 	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$ Assume that $y_1 \leq y_2$ and $z_1 \leq z_2$, Proof by Contradiction: Assume there exists a sum, s.t. $y_i \neq y_1 \text{ and } y_1<y_i<y_2$ and $z_j \neq z_1 \text{ and } z_1<z_j<z_2$, such that $y_i+z_i<y_1+z_1$, than the following also holds: $y_i=y_1+a,z_j=z_1+b \text{ with: } a,b\in \mathbb{N}$, but than $y_i+z_i<y_1+z_1$ cannot hold, and therefore $\oplus$ holds and is monotonic. (analogously for: $y_i+z_j<y_2+z_2$)
-	\item{$\ominus$ :} $[y_1,y_2] \ominus [z_1,z_2] := [y_1-z_2,y_2-z_1]$
+	\item{$\ominus$ :} $[y_1,y_2] \ominus [z_1,z_2] := [y_1-z_2,y_2-z_1]$ Assume that $y_1 \leq y_2$ and $z_1 \leq z_2$, Proof by Contradiction: Assume there exists a subtraction, s.t. $y_i \neq y_1 \text{ and } y_1<y_i<y_2$ and $z_j \neq z_2 \text{ and } z_1<z_j<z_2$, such that $y_i+z_i<y_1+z_1$, than the following also holds: $y_i=y_1+a,z_j=z_1+b \text{ with: } a,b\in \mathbb{N}$, but than $y_i+z_i<y_1+z_1$ cannot hold, and therefore $\oplus$ holds and is monotonic. (analogously for: $y_i+z_j<y_2+z_2$)
 	\item{$\otimes$ :} $[y_1,y_2] \otimes [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
-	\item{$\oslash$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
+	\item{$\oslash$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
 \end{itemize}
 
 \section*{Exercise 2}
