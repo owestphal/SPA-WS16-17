@@ -56,7 +56,7 @@ We have four cases to show for:
   \end{cases}
 \]
 \begin{itemize}
-	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$ Assume that $y_1 \leq y_2$ and $z_1 \leq z_2$, Proof by Contradiction: Assume there exists a sum, s.t. $y_i \neq y_1 \text{ and } y_1<y_i<y_2$ and $z_j \neq z_1 \text{ and } z_1<z_j<z_2$, such that $y_i+z_i<y_1+z_1$, than the following also holds: $y_i=y_1+a,z_j=z_1+b \text{ with: } a,b\in \mathbb{N}$, but than $y_i+z_i<y_1+z_1$ cannot hold, and therefore $\oplus$ holds and is monotonic.
+	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$ Assume that $y_1 \leq y_2$ and $z_1 \leq z_2$, Proof by Contradiction: Assume there exists a sum, s.t. $y_i \neq y_1 \text{ and } y_1<y_i<y_2$ and $z_j \neq z_1 \text{ and } z_1<z_j<z_2$, such that $y_i+z_i<y_1+z_1$, than the following also holds: $y_i=y_1+a,z_j=z_1+b \text{ with: } a,b\in \mathbb{N}$, but than $y_i+z_i<y_1+z_1$ cannot hold, and therefore $\oplus$ holds and is monotonic. (analogously for: $y_i+z_j<y_2+z_2$)
 	\item{$\ominus$ :} $[y_1,y_2] \ominus [z_1,z_2] := [y_1-z_2,y_2-z_1]$
 	\item{$\otimes$ :} $[y_1,y_2] \otimes [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
 	\item{$\oslash$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
