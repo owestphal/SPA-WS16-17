@@ -1,0 +1,152 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools} %loads amsmath
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usepackage{arydshln}
+\usepackage{stmaryrd}
+\usetikzlibrary{arrows,automata}
+\usepackage{ stmaryrd }
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{26pt}
+\pagestyle{fancy}
+\lhead{Static Program Analysis WS 2016/17 -- Series 03 \\ \small{Igor Dudschenko (296764), Oliver Westphal (358321), Mitja Schmakeit (357076)}}
+\rhead{}
+
+\newcommand\dbrackets[1]{\llbracket #1 \rrbracket}
+
+\setlength{\parindent}{0cm}
+\newcommand\note[1]{\textcolor{red}{#1}}
+
+\begin{document}
+\section*{Exercise 1}
+\subsection*{a)}
+g has two fixpoints: 0 and 1, where 0 is the least FP.
+\subsection*{b)}
+f has the set of fixpoints: $\{2\Pi i| i \in \mathbb{N}\}$, where 0 is the least FP.
+\subsection*{c)}
+f has the fixpoints: $\emptyset, \{0\}, \mathbb{N}_0$, with $\emptyset$ being the least FP.
+\subsection*{d)}
+f has the set of fixpoints $\{-1, 0, 1\}$, with $-1$ being the least FP. 
+
+\newcommand\lfp{\text{lfp}}
+\section*{Exercise 2}
+\subsection*{a)}
+Consider the complete lattice $(D,\leq)$ with $D = \{0,1,..,10\}$\\
+and the monotonic function $f(x) := x$\\
+Then, $C := D \setminus \{0\}$ is closed and $f(x) \in C$ for all $x \in C$.
+But $\lfp(f) = 0$, therefore $\lfp(f) \not\in C$.\\
+Thus the claim does not hold.
+\subsection*{b)}
+\newcommand\sqle\sqsubseteq
+Let $\bot$ be the least element of $(D, \sqle)$, then $\bot \sqle x$ and by monotonocity of $f$
+\begin{align}
+	\label{eq:L2b1}
+	f^n(\bot) \sqle f^n(x)
+\end{align}
+holds for all $n \in \mathbb{N}$. From the assumption and monotonicity of $f$ it follows that
+\begin{align*}
+	f^n(x) \sqle f^{n-1}(x) \sqle \dots \sqle f(x) \sqle x
+\end{align*}
+and by transitivity of $\sqle$
+\begin{align}
+	\label{eq:L2b2}
+	f^n(x) \sqle x \text{ for all } n \in \mathbb N
+\end{align}
+From equations \ref{eq:L2b1} and \ref{eq:L2b2} and transitivity we get
+\begin{align}
+	f^n(\bot) \sqle x \text{ for all } n \in \mathbb N
+\end{align}
+Since $\lfp(f)=\bigsqcup\{f^k(\bot) | k \in \mathbb N\}$ (Theorem 4.5), we can choose $i \in \mathbb N$ s.t. $\lfp(f) = f^i(\bot)$
+\begin{align*}
+\implies \lfp(f)=f^i(\bot) \sqle x
+\end{align*}
+\qed
+
+\section*{Exercise 3}
+\subsection*{a)}
+\newcommand\sqt{\widetilde\sqsubseteq}
+\subsubsection*{Anti-Symmetry}
+To show: $f \sqt g \land g \sqt f \implies f = g$ where $f = g \Leftrightarrow \forall d \in D: f(d) = g(d)$\\
+Given: $f \sqt g \land g \sqt f$
+$\Leftrightarrow \forall d \in D: f(d) \sqle g(d) \land g(d) \sqle f(d)$ \\
+from ant-symmetry of $\sqle$ we get $ \forall d \in D: f(d) = g(d) \implies f = g$
+
+\subsubsection*{Reflexivity}
+To show: $f \sqt f$\\
+$f \sqt f \Leftrightarrow \forall d \in D: f(d) \sqle f(d)$\\
+Because of reflexivity of $\sqle$ this holds.
+
+\subsubsection*{Transitivity}
+To show: $f \sqt g \land g \sqt h$ implies $f \sqt h$.\\
+$f \sqt g \land g \sqt h \Leftrightarrow \forall d \in D: f(d) \sqle g(d)$ and $\forall d \in D: g(d) \sqle h(d)$.\\
+Since $\sqle$ is transitive, we get that\\
+$ \forall d \in D: f(d) \sqle g(d) \sqle h(d) \implies \forall d \in D: f(d) \sqle h(d)$\\
+$\Rightarrow f \sqt h$
+\qed
+
+\subsection*{b)}
+Let $S= \{f_1, f_2, \dots\}$ be a arbitrary chain in $(D \rightarrow D, \sqt)$.\\
+$S$ induces a chain $S_d$ for each $d \in D$:
+$S_d = \{f_1(d), f_2(d), \dots\} \subseteq D$\\
+since $(D, \subseteq)$ is a complete lattice $\bigsqcup S_d$ exists for every $d \in D$, 
+then $L: D \rightarrow D$ with $L(d) =\bigsqcup S_d$ is LUB of $S$ w.r.t. $\sqt$.
+Since this holds for every chain $(D \rightarrow D, \sqt)$ is a complete lattice. \qed
+
+
+\section*{Exercise 4}
+\newcommand\ein{\leavevmode{\parindent=1em\indent}}
+\newcommand\cst[2]{\texttt{[#1]\textsuperscript{#2}}}
+\newcommand\cli[2]{\cst{#1}{#2}\texttt{;}\\}
+
+\vbox{c = \\
+\cli{y := 19}{1}
+\cli{x := y + 23}{2}
+\cli{z := 1}{3}
+\texttt{while \cst{y < x}{4} begin}\\
+\ein \cli{y := x + z}{5}
+\texttt{end}\\
+\cli{y := x * x}{6}}
+
+\begin{align*}
+	\varphi_1(a,b,c) &= (a, 19, c)\\
+	\varphi_2(a,b,c) &= (b+23, b, c)\\
+	\varphi_3(a,b,c) &= (a, b, 1)\\
+	\varphi_4(a,b,c) &= (a, b, c)\\
+	\varphi_5(a,b,c) &= (a, a+c, c)\\
+	\varphi_6(a,b,c) &= (a, a*a, c)\\
+\end{align*}
+
+%\begin{align*}
+	%mop(6) = \varphi_6(\varphi_5(\varphi_4(\varphi_3(\varphi_2(\varphi_1(\top,\top,\top))))))
+%\end{align*}
+
+\begin{align*}
+&Path(1) = \{[1]\}\\
+&Path(2) = \{[1,2]\}\\
+&Path(3) = \{[1,2,3]\}\\
+&Path(4) = \{[1,2,3,4],[1,2,3,4,5,4],..\}\\
+&Path(5) = \{[1,2,3,4,5],[1,2,3,4,5,4,5],..\}\\
+&Path(6) = \{[1,2,3,4,6],[1,2,3,4,5,6],[1,2,3,4,5,4,6],..\}\\
+\end{align*}
+
+\begin{align*}
+	mop(1)&=\varphi_{[1]}(\top,\top,\top)=(\top, 19, \top))\\
+	mop(2)&=\varphi_{[1,2]}(\top,\top,\top)=(42, 19, \top)\\
+	mop(3)&=\varphi_{[1,2,3]}(\top,\top,\top)=(42, 19, 1)\\
+	mop(4)&=\varphi_{[1,2,3,4]}(\top,\top,\top) \sqcup \varphi_{[1,2,3,4,5,4]}(\top,\top,\top) \sqcup .. \\
+	&= (42,19,1) \sqcup (42,43,1) \sqcup .. = (42,\top,1)\\
+	mop(5)&=\varphi_{[1,2,3,4,5]}(\top,\top,\top) \sqcup \varphi_{[1,2,3,4,5,4,5]}(\top,\top,\top) \sqcup .. \\
+	&=(42, 43, 1) \sqcup (42,43,1) \sqcup .. = (42,43,1)\\
+	mop(6)&=\varphi_{[1,2,3,4,6]}(\top,\top,\top) \sqcup \varphi_{[1,2,3,4,5,6]}(\top,\top,\top) \sqcup \varphi_{[1,2,3,4,5,4,6]}(\top,\top,\top)\\
+	&=(42, 1764, 1) \sqcup (42,1764,1) \sqcup (42,1764,1) \sqcup .. = (42,1764,1)\\
+\end{align*}
+\end{document}

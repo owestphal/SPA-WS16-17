@@ -1,0 +1,130 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools} %loads amsmath
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usepackage{arydshln}
+\usepackage{stmaryrd}
+\usetikzlibrary{arrows,automata}
+\usepackage{ stmaryrd }
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{26pt}
+\pagestyle{fancy}
+\lhead{Static Program Analysis WS 2016/17 -- Series 03 \\ \small{Igor Dudschenko (296764), Oliver Westphal (358321)}}
+\rhead{}
+
+\newcommand\dbrackets[1]{\llbracket #1 \rrbracket}
+
+\setlength{\parindent}{0cm}
+\newcommand\note[1]{\textcolor{red}{#1}}
+
+\begin{document}
+\section*{Exercise 1}
+\newcommand\ein{\leavevmode{\parindent=1em\indent}}
+\newcommand\cst[2]{\texttt{[#1]\textsuperscript{#2}}}
+\newcommand\cli[2]{\cst{#1}{#2}\texttt{;}\\}
+
+\vbox{c = \\
+\cli{skip}{1}
+\texttt{while \cst{$\neg$(x > 3 * y)}{2} do}\\
+\ein \cli{x := x + y}{3}
+\texttt{end}\\
+\cli{y := x}{4}}
+kill/gen - functions:\\
+\begin{tabular}{c | c | c }
+ $ l \in Lab_c$ & $ kill_{AE}(B^l) $ & $ gen_{AE}(B^l)$ \\
+\hline
+  1 & $\emptyset$ & $\emptyset$ \\
+  2 & $\emptyset$ & $\{x, y\}$ \\
+  3 & $\{x\}$ & $\{x,y\}$ \\
+  4 & $\{y\}$ & $\{x\}$ \\
+\end{tabular}
+\\Transfer functions:
+$$\phi_1(L)= L \cup \emptyset $$
+$$\phi_2(L)= L \cup \{x, y\} $$
+$$\phi_3(L)= L \backslash \{x\} \cup \{x, y\} $$
+$$\phi_4(L)= L \backslash \{y\} \cup \{x\}$$
+\\Worklist algorithm, with $Var_c=\{x,y\}$:\\
+\begin{tabular}{| c | r |  c |  c |  c |  c | }
+\hline 
+Step & W & $LV_1$ & $LV_2$ & $LV_3$ & $LV_4$ \\
+\hline
+\hline
+  1 & $(4,3),(4,2),(3,2),(2,3),(2,1)$ 	& $\emptyset$	& $\emptyset$	& $\emptyset$ 	& $Var_c$\\
+  2 & $(4,2),(3,2),(2,3),(2,1)$ 	& $\emptyset$	& $\emptyset$	& $\{x\}$ 		& $Var_c$\\
+  3 & $(3,2),(2,3),(2,1)$ 		& $\emptyset$	& $\{x\}$		& $\{x\}$ 		& $Var_c$\\
+  4 & $(2,3),(2,1)$ 				& $\emptyset$	& $Var_c$ 		& $\{x\}$ 		& $Var_c$\\
+  5 & $(3,2),(2,1)$				& $\emptyset$	& $Var_c$ 		& $Var_c$ 		& $Var_c$\\
+  6 & $(2,1)$ 					& $\emptyset$	& $Var_c$ 		& $Var_c$ 		& $Var_c$\\
+  7 & 							& $Var_c$		& $Var_c$ 		& $Var_c$ 		& $Var_c$\\  
+\hline
+\end{tabular}
+\newpage
+\section*{Exercise 2}
+\subsection*{a)}
+We assume the following things:
+\begin{itemize}
+\item the end of the program "uses" all variables
+\item a path from block $B^l$ to a "use" of some variable starts with a label $l_1$ with $(l,l_1)\in flow(c)$ and ends with the label of the block containing that use
+\item 
+\end{itemize}
+According to the definition of livness, if x is live at the end of a block, then there exists a path to a use of x and x is not redefined along that path.\\
+Let $p=p_1p_2\dots p_n$ denote such a path. If p is cyclic it has the form $p=p_1\dots p_kp_{k+1}\dots p_{k+m}p_k\dots p_n$ i.e. it contains a cycle of length $m$.
+From such a path we can construct a acyclic path $p'=p_1\dots p_k \dots p_n$ by removing the elements $p_{k+1},\dots ,p_{k+m}$.
+Since every path constructed in this way (iteratively , if multiple cycles exist) contains at least one element, we can construct a valid acyclic path from every arbitrary path $p$.
+Therefore the claim holds.
+\subsection*{b)}
+To know that a variable is live at the exit of a certain block $B^l$, the information that it is used later (without prior redefinition) must be propagated from the using block to the block $B^l$.
+This propagation must happen along (or to be precise in the opposite direction of) some path that witnesses the liveness of the variable (i.e. a path that goes from $B^l$ to a use of the variable and the variable is not redefined along the path).\\
+According to a) for every live variable at the exit of a block there is acyclic witness-path.
+Furthermore the fixpoint iteration propagates the analysis information of each label to its successors in the flow-relation in each step.
+Let $n$ be the length of the witness-path for some variable in a block $B^l$, than it take exactly $n$ steps to propagate the information along this path.
+Therefore after $|L_c|$ steps all information has be propagate through the system, because no acyclic path can exceed length $|L_c|$, since it would otherwise contain duplicate elements.
+\section*{Exercise 3}
+\subsection*{a)}
+We modify the dataflowsystem of constant propagation in the following way:
+$D := \{ \delta | \delta :Var_c \rightarrow \{ \bot , \top \} \} $\\
+$\sqsubseteq$ is the pointwise extension of $\bot \sqsubseteq \top$\\
+$\iota := \delta_{\bot} $ where $ \delta_{\bot}(x) = \bot$ for every $x \in Var_c$\\
+modify $val_{\delta}$:\\
+\begin{center}
+$val_{\delta}(x) := x$\\
+$val_{\delta}(z) := z$\\
+$val_{\delta}(a_1 op a_2) := 
+\begin{cases}
+    \bot,& \text{if } z_1 = \bot \text{ or } z_2 = \bot\\
+    \top,& \text{if } z_1 = \top \text{ and } z_2 = \top
+\end{cases}$
+with $z_1 := val_{\delta}(z_1), z_2 := val_{\delta}(z_2)$
+\end{center}
+\subsection*{b)}
+\section*{Exercise 4}
+to show:\\
+\begin{align*}
+&(d1 \sqcup d2)\setminus kill_l(B^l)) \cup gen_l(B^l)\\
+&= (d1\setminus kill_l(B^l)) \cup gen_l(B^l) \sqcup (d2 \setminus kill_l(B^l)) \cup gen_l(B^l)
+\end{align*}
+We write $K_l=kill_l(B^l)$ and $G_l=gen_l(B^l)$\\
+Note that for a given $l$, $K_l,G_l \subseteq M$ are fixed sets.\\
+
+$$\phi_l(d1 \sqcup d2)$$
+$$=((d1 \sqcup d2)\setminus K_l) \cup G_l$$
+\begin{center}
+(since $\sqcup = \cup$ for the given lattice)
+\end{center}
+$$=((d1 \cup d2)\setminus K_l) \cup G_l$$
+$$=((d1 \setminus K_l) \cup (d2 \setminus K_l) ) \cup G_l$$
+$$=(d1 \setminus K_l) \cup (d2 \setminus K_l) \cup G_l \cup G_l$$
+$$=((d1 \setminus K_l) \cup G_l) \cup ((d2 \setminus K_l) \cup G_l)$$
+$$=((d1 \setminus K_l) \cup G_l) \sqcup ((d2 \setminus K_l) \cup G_l)$$
+$$=\phi_l(d1) \sqcup \phi_l(d2)$$
+\qed
+\end{document}
