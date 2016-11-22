@@ -42,6 +42,26 @@ $$[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\big
 \subsection*{b)}
 To show:
 $$\text{If: }x_1 \sqsubseteq x_2 \text{ than also } \delta(x_1) \sqsubseteq \delta(x_2)$$
+For:
+\[ \varphi_l(\delta) :=
+  \begin{cases}
+    \delta       & \quad \text{if } B^l = skip \text{or} B^l \in BExp\\
+  \end{cases}
+\]
+the statement obviously holds.
+We have four cases to show for:
+\[ \varphi_l(\delta) :=
+  \begin{cases}
+    \delta [x] \mapsto val_d(a) & \quad \text{if } B^l=(x:=a)\\
+  \end{cases}
+\]
+\begin{itemize}
+	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$
+	\item{$\ominus$ :} $[y_1,y_2] \ominus [z_1,z_2] := [y_1-z_2,y_2-z_1]$
+	\item{$\otimes$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
+	\item{$\oslash$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
+\end{itemize}
+
 \section*{Exercise 2}
 
 \section*{Exercise 3}
