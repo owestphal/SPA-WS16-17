@@ -68,7 +68,19 @@ We have four cases to show for:
 \end{itemize}
 
 \section*{Exercise 2}
-
+\[ d_1 \nabla_k d_2 =
+  \begin{cases}
+    d_1 \sqcup d_2	& \quad \text{if } (d_1 \sqcup d_2) \sqsubseteq F^k(\bot)\\
+    \top 		& \quad \text{otherwise}\\
+  \end{cases}
+\]
+To show:
+\begin{itemize}
+\item{for every $d_1,d_2 \in D,$}
+	$$d_1 \sqcup d_2 \sqsubseteq d_1 \nabla_k d_2$$
+\item{for all ascending chains $d_0 \sqsubseteq d_1 \sqsubseteq ...$, the ascending chain $d^{\nabla_k}_0 \sqsubseteq d^{\nabla_k}_1 \sqsubseteq ...$ eventually stabilises where :}
+	$$d^{\nabla_k}_0 := d_0 \text{ and } d^{\nabla_k}_{i+1} := d^{\nabla_k}_{i} \nabla_k d_{i+1} \text{ for each } i \in \mathbb{N}$$ 
+\end{itemize}
 \section*{Exercise 3}
 \subsection*{a)}
 We define $\sqsubseteq$ as the smallest relation such that\\
