@@ -41,11 +41,11 @@ $$val_{\delta}(a_1/a_2):=val_{\delta}(a_1) \oslash val_{\delta}(a_2)$$
 $$[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$$
 \subsection*{b)}
 To show:
-$$\text{If: }x_1 \sqsubseteq x_2 \text{ than also } \delta(x_1) \sqsubseteq \delta(x_2)$$
+$$\text{If: }x_1 \sqsubseteq x_2 \text{ than also } \varphi_l(\delta)(x_1) \sqsubseteq \varphi_l(\delta)(x_2)$$
 For:
 \[ \varphi_l(\delta) :=
   \begin{cases}
-    \delta       & \quad \text{if } B^l = skip \text{or} B^l \in BExp\\
+    \delta       & \quad \text{if } B^l = skip \text{ or } B^l \in BExp\\
   \end{cases}
 \]
 the statement obviously holds.
@@ -56,7 +56,7 @@ We have four cases to show for:
   \end{cases}
 \]
 \begin{itemize}
-	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$
+	\item{$\oplus$ :} $[y_1,y_2] \oplus [z_1,z_2] := [y_1+z_1,y_2+z_2]$ Assume that $y_1 \leq y_2$ and $z_1 \leq z_2$, $\$have to assure that the new intervall has to be the 
 	\item{$\ominus$ :} $[y_1,y_2] \ominus [z_1,z_2] := [y_1-z_2,y_2-z_1]$
 	\item{$\otimes$ :} $[y_1,y_2] \otimes [z_1,z_2]=[\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
 	\item{$\oslash$ :} $[y_1,y_2] \oslash [z_1,z_2]=[\bigsqcup\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\},\bigsqcap\{y_1/z_1,y_1/z_2,y_2/z_1,y_2/z_2\}]$
