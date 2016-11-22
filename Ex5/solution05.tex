@@ -120,7 +120,8 @@ $d_1 \triangledown d2 =
 \infty \text{, if } d_1,d_2 \in \mathbb{N} \times \{0\}, d_1 \neq d_2 \\
 d_1 \sqcup d_2 \text{, otherwise}
 \end{cases}$\\\\
-
+This is a widening operator, because it basically "skips" the part of the lattice in which infinite ascending chains can occur.
+Therefore every chain w.r.t the widening operator stabilizes.\\
 for $(D,\preceq)$:\\
 $d_1 \sqcup d2 =
 \begin{cases}
@@ -132,10 +133,11 @@ d_2 \text{, if } d_2 \sqsubseteq d_1 \\
 
 $d_1 \triangledown d2 =
 \begin{cases}
-\infty \text{, if } d_1 \in P_n \times \{0\}, d_2 \in P_m \times \{0\}, n \neq m\\
+\infty \text{, if } d_1 \in P_n \times \{0\}, d_2 \in P_n \times \{0\} \\
 d_1 \sqcup d_2 \text{, otherwise}
-\end{cases}$
-
+\end{cases}$\\
+Similar to above this widening operator "jumps upwards" in the lattice whenever it encounters two elements that are potentially part of an ascending chain.
+And therefor the chains w.r.t this operator stabilizes because $\infty$ can not be a part of a non-stabilizing chain.
 \section*{Exercise 4}
 
 \end{document}
