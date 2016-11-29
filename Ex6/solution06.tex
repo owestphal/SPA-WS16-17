@@ -12,8 +12,9 @@
 \usetikzlibrary{arrows,automata,positioning}
 \usepackage{arydshln}
 \usepackage{stmaryrd}
-\usetikzlibrary{arrows,automata}
 \usepackage{ stmaryrd }
+
+\tikzset{initial text={}}
 
 \usepackage{fancyhdr}
 \setlength{\headheight}{26pt}
@@ -29,6 +30,31 @@
 \begin{document}
 \section*{Exercise 1}
 \subsection*{a)}
+\begin{tikzpicture}[node distance = 0.33cm]
+   \node[state,initial,rectangle] (1)   {$[x := -1;]^1$}; 
+   \node[state,rectangle] (2) [below=of 1] {$[y:=-2*x;]^2$}; 
+   \node[state,rectangle] (3) [below =of 2] {$while[(y-1>x)]^3$}; 
+   \node[state,rectangle](4) [below =of 3] {$[assert (y-1>x)]^4$};
+   \node[state,rectangle](5) [below =of 4] {$[y:=y-1]^5$};
+   \node[state,rectangle](6) [below =of 5] {$if[x>-2]^6$};
+   \node[state,rectangle](7) [below =of 6] {$[assert (x>-2)]^7$};
+   \node[state,rectangle](8) [below =of 7] {$[x:=x-1]^8$};
+   \node[state,rectangle](9) [right=of 6] {$[assert (x \leq -2)]^9$};
+   \node[state,rectangle](10) [below =of 9] {$[skip]^{10}$};
+   \node[state,rectangle](11) [right =of 3] {$[assert (y-1 \leq x)]^{11}$};
+   \node[state,rectangle](12) [below =of 11] {$[skip]^{12}$};   
+    \path[->] (1) edge  node {} (2);
+    \path[->] (2) edge  node {} (3);
+    \path[->] (3) edge  node {} (4);
+    \path[->] (4) edge  node {} (5);
+    \path[->] (5) edge  node {} (6);
+    \path[->] (6) edge  node {} (7);
+    \path[->] (7) edge  node {} (8);
+    \path[->] (3) edge  node {} (11);
+    \path[->] (11) edge  node {} (12);
+    \path[->] (6) edge  node {} (9);
+    \path[->] (9) edge  node {} (10);
+\end{tikzpicture}
 \subsection*{b)}
 \subsection*{c)}
 \section*{Exercise 2}
