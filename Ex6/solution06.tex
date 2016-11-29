@@ -40,7 +40,6 @@
    \node[state,rectangle](7) [below =of 6] {$[assert (x>-2)]^7$};
    \node[state,rectangle](8) [below =of 7] {$[x:=x-1]^8$};
    \node[state,rectangle](9) [right=of 6] {$[assert (x \leq -2)]^9$};
-   \node[state,rectangle](10) [below =of 9] {$[skip]^{10}$};
    \node[state,rectangle](11) [right =of 3] {$[assert (y-1 \leq x)]^{11}$};
    \node[state,rectangle](12) [below =of 11] {$[skip]^{12}$};   
     \path[->] (1) edge  node {} (2);
@@ -53,9 +52,13 @@
     \path[->] (3) edge  node {} (11);
     \path[->] (11) edge  node {} (12);
     \path[->] (6) edge  node {} (9);
-    \path[->] (9) edge  node {} (10);
+    \draw [->, bend angle=35, bend right] (9) to (3);
+    \draw [->, bend angle=75, bend left] (8) to (3);
 \end{tikzpicture}
 \subsection*{b)}
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c}
+12,23,34,45,56,67,78,69,9 10,
+\end{tabular}
 \subsection*{c)}
 \section*{Exercise 2}
 \section*{Exercise 3}
