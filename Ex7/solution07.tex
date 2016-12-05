@@ -35,13 +35,24 @@
 \subsection*{a)}
 Given:
 $$\text{Galois Connections: } (L_1, \alpha_1, \gamma_1, M_1) \text{ and } (L_2, \alpha_2, \gamma_2, M_2)$$
-To show:
 $$(L_1, \alpha_2 \circ \alpha_1, \gamma_1 \circ \gamma_2,  M_2) \text{ is a Galois connection if } M_1 = L_2$$
-\subsubsection*{$M_1 = L_2$:}
+
 To show:
+
 $$\forall l_1 \in L_1: l_1 \sqsubseteq_{L_1} \gamma_1(\gamma_2(\alpha_2(\alpha_1(l_1)))) \text{ and:}$$
-$$\forall m_2 \in M_2: \alpha_2(\alpha_1(\gamma_1(\gamma_2(m_2))))  \sqsubseteq_{M_2} m_2$$
-\subsubsection*{$M_1 \neq L_2$:}
+$$\forall m_2 \in M_2: \alpha_2(\alpha_1(\gamma_1(\gamma_2(m_2))))  \sqsubseteq_{M_2} m_2 \text{, for: } L_2 = M_1$$
+
+Proof:
+Since we know that $(L_1, \alpha_1, \gamma_1, M_1)$ and $(L_2, \alpha_2, \gamma_2, M_2), 
+(L_1, \alpha_2 \circ \alpha_1, \gamma_1 \circ \gamma_2,  M_2)$ are Galois connections, we also know that $(L_1, \sqsubseteq_{L_1})$, $(L_2, \sqsubseteq_{L_2})$, $(M_1, \sqsubseteq_{M_1})$ and $(M_2, \sqsubseteq_{M_2})$ are complete Lattices, the following has to hold:
+
+$$\alpha_1:L_1 \rightarrow M_1 \text{ and } \alpha_1:L_1 \rightarrow L_2$$
+$$\gamma_2:M_2 \rightarrow L_2 \text{ and } \gamma_2:M_2 \rightarrow M_1$$
+$$\alpha_2:L_2 \rightarrow M_2 \text{ and } \alpha_2:M_1 \rightarrow M_2$$
+$$\gamma_1:M_1 \rightarrow L_1 \text{ and } \gamma_1:L_2 \rightarrow L_1$$
+And:
+$$\forall l_1 \in L_1:l_1\sqsubseteq_{L_1} \gamma_1(\alpha_2(l_1)) \sqsubseteq_{L_1} \gamma_1(\gamma_2(\alpha_2(l_1))) \sqsubseteq_{L_1} \gamma_1(\gamma_2(\alpha_2(\alpha_1(l_1))))$$
+$$\forall m_2 \in M_2:\alpha_2(\gamma_2(m_2))\sqsubseteq_{M_2} \alpha_2(\gamma_1(\gamma_2(m_2)))\sqsubseteq_{M_2} \sqsubseteq_{M_2} \alpha_2(\alpha_1((\gamma_1(m_2))))\sqsubseteq_{M_2} m_2$$
 
 \subsection*{b)}
 
