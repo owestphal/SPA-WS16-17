@@ -72,7 +72,7 @@ Proof by Contradiction:\\
 Assume that there exists a $l \in 2^{\mathbb{Z}}$, such that $\forall m \in M:\alpha(\gamma(m)) \sqsupset_M m$.\\
 Than $\gamma(m) \sqsubseteq \mathbb{Z}$, then $l$ can only exist if $l=\gamma(m)$ and $\alpha(l)\ni {-2,-1,0,1,2}$, since $\mathbb{N}_{even} \cup \mathbb{N}_{odd} \cup -\mathbb{N}_{odd} \cup -\mathbb{N}_{even} \cup {0}=\mathbb{Z}$. And therefore there does not exist a $l \in 2^{\mathbb{Z}}$, such that $\forall m \in M:\alpha(\gamma(m)) \sqsupset_M m$
 
-$$\Rightarrow \forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l))$$
+$$\Rightarrow \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_M m$$
 
 Assume that there exists a $m \in 2^{-2,-1,0,1,2}$, such that $\forall l \in L:l \sqsupset_L \gamma(\alpha(l))$.\\
 Than $\alpha(l) \sqsubseteq {-2,-1,0,1,2}$, then $m$ can only exist if $m=\alpha(l)$ and $\gamma(m)\sqsupset \bigcup_{p \in P}\{p \cdot n | n \in \mathbb{Z}_{>0}\}$, since $p \in \mathbb{Z} \text{ and } n \in \mathbb{Z}_{>0} \Rightarrow \bigcup_{p \in P}\{p \cdot n | n \in \mathbb{Z}_{>0}\} \sqsubseteq \mathbb{Z}$. And therefore there does not exist a $m \in 2^{-2,-1,0,1,2}$, such that $\forall l \in L:l \sqsupset_L \gamma(\alpha(l))$
