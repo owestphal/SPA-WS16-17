@@ -112,5 +112,25 @@ For $M = \{\{1\}\{2\}\{3\}\}$, $\gamma(\alpha(M))= \gamma(\{1,2,3\}) = \{\{1,2,3
 \subsection*{d)}
 
 \subsection*{e)}
-
+For $Z\in 2^{\mathbb{N}}$, $\gamma(\alpha(Z)) =
+	\begin{cases}
+		\gamma(-\infty), Z = \emptyset\\
+		\gamma(max\{Z\}), Z \neq \emptyset
+	\end{cases}
+= 	\begin{cases}
+		\emptyset, Z = \emptyset\\
+		\{z \in \mathbb{Z}| z \leq max{Z}\}, Z \neq \emptyset
+	\end{cases}$\\
+Since $Z \subseteq \{z \in \mathbb{Z}| z \leq max{Z} \}$ we get $Z \subseteq \gamma(\alpha(Z))$\\
+For $p\in \mathbb{Z}\cup\{-\infty,\infty\}$, $\alpha(\gamma(p)) = \alpha (\{z \in \mathbb{Z} | z \leq p \}) =
+	\begin{cases}
+	-\infty&, \{z \in \mathbb{Z} | z \leq p \} = \emptyset\\
+	max\{z \in \mathbb{Z} | z \leq p \}&, \{z \in \mathbb{Z} | z \leq p \} \neq \emptyset
+	\end{cases}
+= 	\begin{cases}
+	-\infty &, if\ p = -\infty\\
+	p &, otherwise
+	\end{cases}
+= p $
+So we have a Galois connection.
 \end{document}
