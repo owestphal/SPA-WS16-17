@@ -1,0 +1,66 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools} %loads amsmath
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usepackage{arydshln}
+\usepackage{stmaryrd}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage[margin=2cm]{geometry}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+
+\tikzset{initial text={}}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{26pt}
+\pagestyle{fancy}
+\lhead{Static Program Analysis WS 2016/17 -- Series 07 \\ \small{Igor Dudschenko (296764), Oliver Westphal (358321)}}
+\rhead{}
+
+\newcommand\dbrackets[1]{\llbracket #1 \rrbracket}
+
+\setlength{\parindent}{0cm}
+\newcommand\note[1]{\textcolor{red}{#1}}
+
+\begin{document}
+\section*{Exercise 1}
+\subsection*{a)}
+to show: $(L_1, \alpha_2 \circ \alpha_1, \gamma_1 \circ \gamma_2, M_2)$ is Galois-Connection, i.e.
+$$\forall l \in L_1 : l \sqsubseteq_{L_1} \gamma_1 \circ \gamma_2 (\alpha_2 \circ \alpha_1 (l))$$
+$$\forall m \in M_2 : \alpha_2 \circ \alpha_1(\gamma_1 \circ \gamma_2  (m)) \sqsubseteq_{M_2} m$$\\
+Since $\alpha_1(l) \in L_2$ for $l \in L_1$ from the def. of Galois-Connections we get $\alpha_1(l) \sqsubseteq_{L_2} \gamma_2(\alpha_2(\alpha_1(l))$ because $\gamma_1$ is monotonic we also have $\gamma_1(\alpha_1(l)) \sqsubseteq_{L_2} \gamma_1(\gamma_2(\alpha_2(\alpha_1(l)))$ combining this with $l \sqsubseteq_{L_1} \gamma_1(\alpha_1(l))$ from the Galois-def. yields $l \sqsubseteq_{L_1} \gamma_1(\alpha_1(l)) \sqsubseteq_{L_2} \gamma_1(\gamma_2(\alpha_2(\alpha_1(l)))$ and therefore the first part of the claim.\\
+\\
+Analogously we show the second part:\\
+$\gamma_2(m)\in M_1$ for $m\in M_2 \Rightarrow \alpha_1(\gamma_1(\gamma_2(m)) \sqsubseteq_{M_1} \gamma_2(m)$, and  again using monotonicity and the Galois property we get $\alpha_2(\alpha_1(\gamma_1(\gamma_2(m))) \sqsubseteq_{M_2} \alpha_2(\gamma_2(m)) \sqsubseteq_{M_2} m \qed$
+\subsection*{b)}
+
+\section*{Exercise 2}
+\subsection*{a)}
+For $Z \in 2^\mathbb{Z}$, $\gamma(\alpha(Z) = \gamma(\{ f(z) | z \in Z \}) = \bigcup_{p\in \{ f(z) | z \in Z \}} \{p n | n \in \mathbb{Z}_{>0}\} = {f(z) | z \in Z, n \in \mathbb{Z}_{>0}} \sqsupseteq_L \{f(z) n_z | z \in Z\} $ where $\sqsubseteq_L = \subseteq$ and
+$n_z = 
+	\begin{cases}
+	|z| \text{ if z odd}\\
+	\frac{|z|}{2} \text{ otherwise}	
+	\end{cases}$\\
+Then $\gamma(\alpha(Z) \sqsupseteq_L \{f(z) n_z | z \in Z\} = Z$.\\
+\\
+For $P \in 2^{\{0,1,2,-1,-2\}}$, $\alpha(\gamma(P)) = \alpha(\bigcup_{p\in P} \{p n | n \in \mathbb{Z}_{>0}\}) = \{f(z) | z \in \bigcup_{p\in P} \{p n | n \in \mathbb{Z}_{>0}\} \sqsubseteq_M P $ where $\sqsubseteq_M = \supseteq$.\\
+\\
+So $(2^\mathbb{Z},\alpha,\gamma,2^{\{0,1,2,-1,-2\}})$ is Galois connection, with the lattices $(2^\mathbb{Z},\subseteq)$ and $(2^{\{0,1,2,-1,-2\}},\supseteq)$
+\subsection*{b)}
+
+\subsection*{c)}
+
+\subsection*{d)}
+
+\subsection*{e)}
+
+\end{document}
