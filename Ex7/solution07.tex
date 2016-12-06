@@ -56,7 +56,7 @@ $$\forall m_2 \in M_2:\alpha_2(\gamma_2(m_2))\sqsubseteq_{M_2} \alpha_2(\gamma_1
 
 \subsection*{b)}
 
-$\alpha$ obviously has to hold since:
+$\alpha$:
 $$\forall l \in L,\forall m \in M: \alpha_1(l) \sqsubseteq_{L} m$$
 $$\forall l \in L,\forall m \in M: \alpha_2(l) \sqsubseteq_{L} m$$
 $$\Rightarrow \forall l \in L,\forall m \in M: \alpha(l) \sqsubseteq_{L} m$$
@@ -67,6 +67,12 @@ $$\forall m \in M: \gamma_1(m_1) \sqsubseteq_L \gamma(m) \text{ and: } \gamma_2(
 
 \section*{Exercise 2}
 \subsection*{a)}
+
+Proof by Contradiction:\\
+Assume that there exists a $l \in 2^{\mathbb{Z}}$, such that $\forall m \in M:\alpha(\gamma(m)) \sqsupset_M m$.\\
+Than $\gamma(m) \sqsubseteq \mathbb{Z}$, then $l$ can only exist if $l=\gamma(m)$ and $\alpha(l)\ni {-2,-1,0,1,2}$, since $\mathbb{N}_{even} \cup \mathbb{N}_{odd} \cup -\mathbb{N}_{odd} \cup -\mathbb{N}_{even} \cup {0}$. And therefore there does not exist a $l \in 2^{\mathbb{Z}}$, such that $\forall m \in M:\alpha(\gamma(m)) \sqsupset_M m$
+
+$$\Rightarrow \forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l))$$
 
 \subsection*{b)}
 
