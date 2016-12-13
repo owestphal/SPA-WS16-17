@@ -43,7 +43,9 @@ $$\Rightarrow \alpha(\bot_L) = \bot_M$$
 
 \subsection*{b)}
 $\gamma(\bot_M) = \bot_L$ does not hold, counterexample:\\
-For: $L=(\bot_L,\top_L)$ and $M={\bot_M}$, we get $\gamma(\bot_M) = \top_L \neq \bot_L$, therefore $\gamma(\bot_M) = \bot_L$ does not hold.
+For: $L=\{\bot_L,\top_L\}$ and $M={\bot_M}$, we define $\alpha(l)= \bot_M$ and $\gamma(m)=\top_L$.
+Then $(L,\alpha,\gamma,M)$ is a Galois-connection.\\
+Therefore we get $\gamma(\bot_M) = \top_L \neq \bot_L$, thus $\gamma(\bot_M) = \bot_L$ does not hold.
 %Proof:
 %$$\gamma \text{ is uniquely dermined by $\alpha$ as follows: } \gamma(m) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M m\}$$
 %$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\}$$
@@ -73,7 +75,7 @@ Proof:
 $$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
 $$\Rightarrow \gamma(m) \sqsubseteq_L \gamma(\alpha(\gamma(m))) \sqsubseteq_L \gamma(m)$$
 Thus:
-$$\gamma \circ \alpha \circ \alpha = \gamma$$
+$$\gamma \circ \alpha \circ \gamma = \gamma$$
 %To show:
 %$$\gamma \circ \alpha \circ \gamma = \gamma$$
 %Proof:
@@ -96,7 +98,7 @@ Extend the execution function introduced in the lecture by:\\
 (pop)
 \begin{prooftree}
 	\Infer0[]{val_\sigma(s)=i_0 i_1 \dots i_n}
-	\Infer1[]{<s.pop(),\sigma> \rightarrow <\downarrow,\sigma [s \mapsto i_1 \dots i_n] ]>}
+	\Infer1[]{<s.pop(),\sigma> \rightarrow <\downarrow,\sigma [s \mapsto i_1 \dots i_n]>}
 \end{prooftree}
 \subsection*{2)}
 Given:
