@@ -101,37 +101,64 @@ Extend the execution function introduced in the lecture by:\\
 	\Infer1[]{<s.pop(),\sigma> \rightarrow <\downarrow,\sigma [s \mapsto i_1 \dots i_n]>}
 \end{prooftree}
 \subsection*{2)}
-Given:
-\begin{enumerate}
-	\item $L = 2^{\mathbb{Z^{*}} \times \mathbb{Z^{*}}}$
-	\item $M_1 = 2^{\{H,S\}}$
-	\item $M_2 = 2^{\mathbb{Z}}$
-	\item $(\alpha_2,\gamma_2) \text{ with } \mathbb{Z}^* \times \mathbb{Z}^* \rightarrow \mathbb{Z}:(a,b)\mapsto length(a) - length(b)$
-	\item $M_1 \times M_2 = 2^{\{H,S\}} \times 2^{\mathbb{Z}}$
-\end{enumerate}
-Required for $(\alpha,\gamma)$ is a product of:
-	\begin{enumerate}
-		\item $(\alpha_1,\gamma_1)$ between $L$ and $M_1$
-		\item $(\alpha_2,\gamma_2)$ between $L$ and $M_2$
-	\end{enumerate}
-Construct $(\alpha_1,\gamma_1)$:
-  \[
-    \alpha_1(m,n) =
-    \begin{cases}
-         H & \text{, for } \exists a_{top}  \in \mathbb{Z} \text{ and }x,y\in \mathbb{Z}^*: m = a_{top} \circ x \land n = a_{top} \circ y \\
-         S & \text{, for } \exists x  \in \mathbb{Z}^*: m = x \circ n \lor n = x \circ m \\
-    \end{cases}
-  \]
-  Note: $a_{top}$ indicates that this is the same top element for both stacks, therefore use H. For S we check if either n can be extended by any substack x, s.t. $m=x \circ n$ or vice versa with m, to check for possible suffixes.
-    \[
-    \gamma_1(X) =
-    \begin{cases}
-        \mathbb{Z}^* \times \mathbb{Z}^* & \text{, for } X=\emptyset\\
-        \{(x_{top} \cdot a, x_{top} \cdot b | (a,b)\in X ,x_{top} \in \mathbb{Z}\text{, } a,b \in \mathbb{Z}^*\} & \text{, for } X=\{H\} \\
-        \{(a,x \circ a) | x,a \in \mathbb{Z}^*\} \cup \{(x \circ b,b)|x,b \in \mathbb{Z}^*\} & \text{, for } X=\{S\}\\
-        \gamma(\{H\}) \cap \gamma(\{S\}) & \text{, for } X=\{S\}\cup\{H\}
-    \end{cases}
-  \]  
+We define $\alpha$ and $\gamma$ in the following way:
+$$\alpha(L):= (\bigcup_{l\in L}\widehat{\alpha}(l),\bigcup_{l\in L} \delta(l))$$
+with $\widehat{\alpha} : \mathbb{Z^{*}} \times \mathbb{Z^{*}} \rightarrow 2^{\{H,S\}}$
+$$\widehat{\alpha}(s,t)=
+\begin{cases}
+	\{H,S\} &\text{, if peek(s)=peek(t) and (s is prefix of t or t is prefix of s)}\\
+	\{H\} &\text{, if peek(s)=peek(t)}\\
+	\{S\} &\text{, if s is prefix of t or t is prefix of s}\\
+	\emptyset &\text{otherwise}
+\end{cases}$$
+and $\delta : \mathbb{Z^{*}} \times \mathbb{Z^{*}} \rightarrow 2^\mathbb{Z}$
+$$\delta(s,t):= \{|s| - |t|\}$$
+$$\gamma(A,D):=
+\begin{cases}
+	(\widehat{D}\cap\widehat{H})\cup(\widehat{D}\cap\widehat{S}) &\text{ , if }A = \{H,S\}\\
+	\widehat{D}\cap\widehat{H} &\text{ , if }A = \{H\}\\
+	\widehat{D}\cap\widehat{S} &\text{ , if }A = \{S\}\\
+	\widehat{D} &\text{ , if }A = \emptyset
+\end{cases}$$
+where 
+$$\widehat{D} := \{(s,t) \in \mathbb{Z^{*}} \times \mathbb{Z^{*}} |\ |s| -|t| \in D\}$$
+$$\widehat{H} := \{(s,t) \in \mathbb{Z^{*}} \times \mathbb{Z^{*}} |\ |s| = |t| \}$$
+$$\widehat{S} := \{(s,t) \in \mathbb{Z^{*}} \times \mathbb{Z^{*}} |\ \text{s is prefix of t or t is prefix of s}\}$$
+
+This forms a Galois connection, because $\alpha$ over-approximates the concrete domain by basically checking what special types of stack-pairs occur in a given set.
+And $\alpha(\gamma(M)) = M$ since $\gamma$ maps to all stack-pairs that fulfill the conditions 'modeled' by $M$ and then $\alpha$ 'identifies' all of these conditions mapping back to $M$. And since both functions are monotonic we have a Galois-connection.
+
+%Given:
+%\begin{enumerate}
+%	\item $L = 2^{\mathbb{Z^{*}} \times \mathbb{Z^{*}}}$
+%	\item $M_1 = 2^{\{H,S\}}$
+%	\item $M_2 = 2^{\mathbb{Z}}$
+%	\item $(\alpha_2,\gamma_2) \text{ with } \mathbb{Z}^* \times \mathbb{Z}^* \rightarrow \mathbb{Z}:(a,b)\mapsto length(a) - length(b)$
+%	\item $M_1 \times M_2 = 2^{\{H,S\}} \times 2^{\mathbb{Z}}$
+%\end{enumerate}
+%Required for $(\alpha,\gamma)$ is a product of:
+%	\begin{enumerate}
+%		\item $(\alpha_1,\gamma_1)$ between $L$ and $M_1$
+%		\item $(\alpha_2,\gamma_2)$ between $L$ and $M_2$
+%	\end{enumerate}
+%Construct $(\alpha_1,\gamma_1)$:
+%  \[
+%    \alpha_1(m,n) =
+%    \begin{cases}
+%         H & \text{, for } \exists a_{top}  \in \mathbb{Z} \text{ and }x,y\in \mathbb{Z}^*: m = a_{top} \circ x \land n = a_{top} \circ y \\
+%         S & \text{, for } \exists x  \in \mathbb{Z}^*: m = x \circ n \lor n = x \circ m \\
+%    \end{cases}
+%  \]
+%  Note: $a_{top}$ indicates that this is the same top element for both stacks, therefore use H. For S we check if either n can be extended by any substack x, s.t. $m=x \circ n$ or vice versa with m, to check for possible suffixes.
+%    \[
+%    \gamma_1(X) =
+%    \begin{cases}
+%        \mathbb{Z}^* \times \mathbb{Z}^* & \text{, for } X=\emptyset\\
+%        \{(x_{top} \cdot a, x_{top} \cdot b | (a,b)\in X ,x_{top} \in \mathbb{Z}\text{, } a,b \in \mathbb{Z}^*\} & \text{, for } X=\{H\} \\
+%        \{(a,x \circ a) | x,a \in \mathbb{Z}^*\} \cup \{(x \circ b,b)|x,b \in \mathbb{Z}^*\} & \text{, for } X=\{S\}\\
+%        \gamma(\{H\}) \cap \gamma(\{S\}) & \text{, for } X=\{S\}\cup\{H\}
+%    \end{cases}
+%  \]  
 \section*{Exercise 3}
 \subsection*{a)}
 
