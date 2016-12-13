@@ -104,6 +104,7 @@ Given:
 	\item $L = 2^{\mathbb{Z^{*}} \times \mathbb{Z^{*}}}$
 	\item $M_1 = 2^{\{H,S\}}$
 	\item $M_2 = 2^{\mathbb{Z}}$
+	\item $(\alpha_2,\gamma_2) \text{ with } \mathbb{Z}^* \times \mathbb{Z}^* \rightarrow \mathbb{Z}:(a,b)\mapsto length(a) - length(b)$
 	\item $M_1 \times M_2 = 2^{\{H,S\}} \times 2^{\mathbb{Z}}$
 \end{enumerate}
 Required for $(\alpha,\gamma)$ is a product of:
@@ -111,6 +112,15 @@ Required for $(\alpha,\gamma)$ is a product of:
 		\item $(\alpha_1,\gamma_1)$ between $L$ and $M_1$
 		\item $(\alpha_2,\gamma_2)$ between $L$ and $M_2$
 	\end{enumerate}
+Construct $(\alpha_1,\gamma_1)$:
+  \[
+    \alpha_1(m,n) =
+    \begin{cases}
+         H & \text{, for } \exists a_{top}  \in \mathbb{Z} \text{ and }x,y\in \mathbb{Z}^*: m = a_{top} \circ x \land n = a_{top} \circ y \\
+         S & \text{, for } \exists x  \in \mathbb{Z}^*: m = x \circ n \lor n = x \circ m \\
+    \end{cases}
+  \]
+  Note: $a_{top}$ indicates that this is the same top element for both stacks, therefore use H. For S we check if either n can be extended by any substack x, s.t. $m=x \circ n$ or vice versa with m, to check for possible suffixes.  
 \section*{Exercise 3}
 \subsection*{a)}
 
