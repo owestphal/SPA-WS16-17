@@ -120,7 +120,16 @@ Construct $(\alpha_1,\gamma_1)$:
          S & \text{, for } \exists x  \in \mathbb{Z}^*: m = x \circ n \lor n = x \circ m \\
     \end{cases}
   \]
-  Note: $a_{top}$ indicates that this is the same top element for both stacks, therefore use H. For S we check if either n can be extended by any substack x, s.t. $m=x \circ n$ or vice versa with m, to check for possible suffixes.  
+  Note: $a_{top}$ indicates that this is the same top element for both stacks, therefore use H. For S we check if either n can be extended by any substack x, s.t. $m=x \circ n$ or vice versa with m, to check for possible suffixes.
+    \[
+    \gamma_1(X) =
+    \begin{cases}
+        \mathbb{Z}^* \times \mathbb{Z}^* & \text{, for } X=\emptyset\\
+        \{(x_{top} \cdot a, x_{top} \cdot b | (a,b)\in X ,x_{top} \in \mathbb{Z}\text{, } a,b \in \mathbb{Z}^*\} & \text{, for } X=\{H\} \\
+        \{a,x \circ a | x,a \in \mathbb{Z}^*\} \cup \{x \circ b,b|x,b \in \mathbb{Z}^*\} & \text{, for } X=\{S\}\\
+        \gamma(\{H\}) \cap \gamma(\{S\}) & \text{, for } X=\{S\}\cup\{H\}
+    \end{cases}
+  \]  
 \section*{Exercise 3}
 \subsection*{a)}
 
