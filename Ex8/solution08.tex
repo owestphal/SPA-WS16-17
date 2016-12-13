@@ -16,6 +16,7 @@
 \usepackage{rotating}
 \usepackage[margin=2cm]{geometry}
 \usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\usepackage{ebproof}
 
 \tikzset{initial text={}}
 
@@ -71,7 +72,18 @@ $$\gamma \circ \alpha \circ \gamma = \gamma$$
 \section*{Exercise 2}
 
 \subsection*{1)}
+Extend the execution function introduced in the lecture by:\\
+(push)
+\begin{prooftree}
+	\Infer0[]{}
+	\Infer1[]{<s.push(a),\sigma> \rightarrow \sigma [s \mapsto val_{\sigma}(a) \cdot val_{\sigma}(s) ]}
+\end{prooftree}
 
+(pop)
+\begin{prooftree}
+	\Infer0[]{}
+	\Infer1[]{<s.pop(),\sigma> \rightarrow \sigma [s \mapsto val_{\sigma}(s) [2,length(val_{\sigma}(s))] ]}
+\end{prooftree}
 \subsection*{2)}
 
 \section*{Exercise 3}
