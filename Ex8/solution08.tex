@@ -34,12 +34,19 @@
 \section*{Exercise 1}
 \subsection*{a)}
 To show:
-$$\alpha(\bot_L) = \top_M$$
+$$\alpha(\bot_L) = \bot_M$$
 Proof:
+$$\alpha \text{ is uniquely dermined by $\gamma$ as follows: } \alpha(l) = \bigsqcap \{m \in M | l \sqsubseteq_L \gamma(m)\}$$
+$$\Rightarrow  \alpha(\bot_L) = \bigsqcap \{m \in M | \bot_L \sqsubseteq_L \gamma(m) \}\}$$
+$$\Rightarrow \alpha(\bot_L) = \bot_M$$
+
 \subsection*{b)}
 To show:
-$$\gamma(\bot_M) = \top_L$$
+$$\gamma(\bot_M) = \bot_L$$
 Proof:
+$$\gamma \text{ is uniquely dermined by $\alpha$ as follows: } \gamma(m) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M m\}$$
+$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\} $$
+$$\Rightarrow \gamma(\bot_M) = \bot_L$$
 
 \subsection*{c)}
 To show:
