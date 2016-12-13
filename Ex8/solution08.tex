@@ -38,7 +38,7 @@ To show:
 $$\alpha(\bot_L) = \bot_M$$
 Proof:
 $$\alpha \text{ is uniquely dermined by $\gamma$ as follows: } \alpha(l) = \bigsqcap \{m \in M | l \sqsubseteq_L \gamma(m)\}$$
-$$\Rightarrow  \alpha(\bot_L) = \bigsqcap \{m \in M | \bot_L \sqsubseteq_L \gamma(m) \}\}$$
+$$\Rightarrow  \alpha(\bot_L) = \bigsqcap \{m \in M | \bot_L \sqsubseteq_L \gamma(m) \}\} = \bigsqcap M = \bot_M$$
 $$\Rightarrow \alpha(\bot_L) = \bot_M$$
 
 \subsection*{b)}
@@ -46,7 +46,7 @@ To show:
 $$\gamma(\bot_M) = \bot_L$$
 Proof:
 $$\gamma \text{ is uniquely dermined by $\alpha$ as follows: } \gamma(m) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M m\}$$
-$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\} $$
+$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\}$$
 $$\Rightarrow \gamma(\bot_M) = \bot_L$$
 
 \subsection*{c)}
@@ -54,35 +54,49 @@ To show:
 $$\alpha \circ \gamma \circ \alpha = \alpha$$
 Proof:
 $$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
-$$\Rightarrow \alpha \sqsubseteq_M \alpha \circ (\gamma \circ \alpha) \text{ (monotonicity of $\alpha$)}$$
-And:
-$$\Rightarrow (\alpha \circ \gamma) \circ \alpha \sqsubseteq_M \alpha \text{ (monotonicity of $\alpha$)}$$
+$$\Rightarrow \alpha(l) \sqsubseteq_M \alpha(\gamma(\alpha(l))) \sqsubseteq_M \alpha(l)$$
 Thus:
 $$\alpha \circ \gamma \circ \alpha = \alpha$$
+%To show:
+%$$\alpha \circ \gamma \circ \alpha = \alpha$$
+%Proof:
+%$$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
+%$$\Rightarrow \alpha \sqsubseteq_M \alpha \circ (\gamma \circ \alpha) \text{ (monotonicity of $\alpha$)}$$
+%And:
+%$$\Rightarrow (\alpha \circ \gamma) \circ \alpha \sqsubseteq_M \alpha \text{ (monotonicity of $\alpha$)}$$
+%Thus:
+%$$\alpha \circ \gamma \circ \alpha = \alpha$$
 \subsection*{d)}
 To show:
-$$\gamma \circ \alpha \circ \gamma = \gamma$$
+$$\gamma \circ \alpha \circ \alpha = \gamma$$
 Proof:
 $$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
-$$\Rightarrow \gamma \sqsubseteq_L (\gamma \circ \alpha) \circ \gamma \text{ (monotonicity of $\gamma$)}$$
-And:
-$$\Rightarrow \gamma \circ (\alpha \circ \gamma) \sqsubseteq_L \gamma \text{ (monotonicity of $\gamma$)}$$
+$$\Rightarrow \gamma(m) \sqsubseteq_L \gamma(\alpha(\gamma(m))) \sqsubseteq_L \gamma(m)$$
 Thus:
-$$\gamma \circ \alpha \circ \gamma = \gamma$$
+$$\gamma \circ \alpha \circ \alpha = \gamma$$
+%To show:
+%$$\gamma \circ \alpha \circ \gamma = \gamma$$
+%Proof:
+%$$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
+%$$\Rightarrow \gamma \sqsubseteq_L (\gamma \circ \alpha) \circ \gamma \text{ (monotonicity of $\gamma$)}$$
+%And:
+%$$\Rightarrow \gamma \circ (\alpha \circ \gamma) \sqsubseteq_L \gamma \text{ (monotonicity of $\gamma$)}$$
+%Thus:
+%$$\gamma \circ \alpha \circ \gamma = \gamma$$
 \section*{Exercise 2}
 
 \subsection*{1)}
 Extend the execution function introduced in the lecture by:\\
 (push)
 \begin{prooftree}
-	\Infer0[]{}
-	\Infer1[]{<s.push(a),\sigma> \rightarrow \sigma [s \mapsto val_{\sigma}(a) \cdot val_{\sigma}(s) ]}
+	\Infer0[]{val_{\sigma}(s) = i_0 i_1 \dots i_n}
+	\Infer1[]{<s.push(a),\sigma> \rightarrow <\downarrow, \sigma [s \mapsto val_{\sigma}(a) \cdot i_0 i_1 \dots i_n]>}
 \end{prooftree}
-
+\\
 (pop)
 \begin{prooftree}
-	\Infer0[]{}
-	\Infer1[]{<s.pop(),\sigma> \rightarrow \sigma [s \mapsto val_{\sigma}(s) [2,length(val_{\sigma}(s))] ]}
+	\Infer0[]{val_\sigma(s)=i_0 i_1 \dots i_n}
+	\Infer1[]{<s.pop(),\sigma> \rightarrow <\downarrow,\sigma [s \mapsto i_1 \dots i_n] ]>}
 \end{prooftree}
 \subsection*{2)}
 Given:
