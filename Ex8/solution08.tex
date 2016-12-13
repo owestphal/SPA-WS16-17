@@ -42,12 +42,12 @@ $$\Rightarrow  \alpha(\bot_L) = \bigsqcap \{m \in M | \bot_L \sqsubseteq_L \gamm
 $$\Rightarrow \alpha(\bot_L) = \bot_M$$
 
 \subsection*{b)}
-To show:
-$$\gamma(\bot_M) = \bot_L$$
-Proof:
-$$\gamma \text{ is uniquely dermined by $\alpha$ as follows: } \gamma(m) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M m\}$$
-$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\}$$
-$$\Rightarrow \gamma(\bot_M) = \bot_L$$
+$\gamma(\bot_M) = \bot_L$ does not hold, counterexample:\\
+For: $L=(\bot_L,\top_L)$ and $M={\bot_M}$, we get $\gamma(\bot_M) = \top_L \neq \bot_L$, therefore $\gamma(\bot_M) = \bot_L$ does not hold.
+%Proof:
+%$$\gamma \text{ is uniquely dermined by $\alpha$ as follows: } \gamma(m) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M m\}$$
+%$$\Rightarrow \gamma(\bot_M) = \bigsqcup \{l \in L | \alpha(l) \sqsubseteq_M \bot_M\}$$
+%$$\Rightarrow \gamma(\bot_M) = \bot_L$$
 
 \subsection*{c)}
 To show:
@@ -126,7 +126,7 @@ Construct $(\alpha_1,\gamma_1)$:
     \begin{cases}
         \mathbb{Z}^* \times \mathbb{Z}^* & \text{, for } X=\emptyset\\
         \{(x_{top} \cdot a, x_{top} \cdot b | (a,b)\in X ,x_{top} \in \mathbb{Z}\text{, } a,b \in \mathbb{Z}^*\} & \text{, for } X=\{H\} \\
-        \{a,x \circ a | x,a \in \mathbb{Z}^*\} \cup \{x \circ b,b|x,b \in \mathbb{Z}^*\} & \text{, for } X=\{S\}\\
+        \{(a,x \circ a) | x,a \in \mathbb{Z}^*\} \cup \{(x \circ b,b)|x,b \in \mathbb{Z}^*\} & \text{, for } X=\{S\}\\
         \gamma(\{H\}) \cap \gamma(\{S\}) & \text{, for } X=\{S\}\cup\{H\}
     \end{cases}
   \]  
