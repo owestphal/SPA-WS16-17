@@ -45,12 +45,22 @@ Proof:
 To show:
 $$\alpha \circ \gamma \circ \alpha = \alpha$$
 Proof:
-
+$$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
+$$\Rightarrow \alpha \sqsubseteq_M \alpha \circ (\gamma \circ \alpha) \text{ (monotonicity of $\alpha$)}$$
+And:
+$$\Rightarrow (\alpha \circ \gamma) \circ \alpha \sqsubseteq_M \alpha \text{ (monotonicity of $\alpha$)}$$
+Thus:
+$$\alpha \circ \gamma \circ \alpha = \alpha$$
 \subsection*{d)}
 To show:
 $$\gamma \circ \alpha \circ \gamma = \gamma$$
 Proof:
-
+$$\forall l \in L: l \sqsubseteq_{L} \gamma(\alpha(l)) \text{ and: } \forall m \in M: \alpha(\gamma(m)) \sqsubseteq_{M} m$$
+$$\Rightarrow \gamma \sqsubseteq_L (\gamma \circ \alpha) \circ \gamma \text{ (monotonicity of $\gamma$)}$$
+And:
+$$\Rightarrow \gamma \circ (\alpha \circ \gamma) \sqsubseteq_L \gamma \text{ (monotonicity of $\gamma$)}$$
+Thus:
+$$\gamma \circ \alpha \circ \gamma = \gamma$$
 \section*{Exercise 2}
 
 \subsection*{1)}
