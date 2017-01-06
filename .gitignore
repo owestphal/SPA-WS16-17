@@ -5,3 +5,6 @@
 *.blg
 *.log
 *.synctex.gz
+
+*.class
+*.jar
