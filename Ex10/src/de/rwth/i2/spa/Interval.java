@@ -253,12 +253,7 @@ public class Interval {
 		 * (no additional whitespace), where x,y are either integers, "-inf" for
 		 * minus infinity, or "inf" for plus infinity
 		 */
-		if (this.isEmpty()){
-			return "[]";
-		}else{
-			NonEmptyInterval thisObject = (NonEmptyInterval) this;
-			return "[" + thisObject.getLowerBound() + "," + thisObject.getUpperBound() + "]";
-		}
+		return this.toString();
 	}
 
 }
