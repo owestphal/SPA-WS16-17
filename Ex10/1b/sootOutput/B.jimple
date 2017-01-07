@@ -1,0 +1,46 @@
+class B extends java.lang.Object
+{
+
+    void <init>()
+    {
+        B r0;
+
+        r0 := @this: B;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+
+        r0 := @parameter0: java.lang.String[];
+
+        return;
+    }
+
+    public void foo()
+    {
+        B r0;
+        java.io.PrintStream $r1, $r2;
+        int i2, i3;
+
+        r0 := @this: B;
+
+        i2 = 13 - 17;
+
+        i3 = 23 + i2;
+
+        $r1 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r1.<java.io.PrintStream: void println(int)>(i3);
+
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i2);
+
+        return;
+    }
+}

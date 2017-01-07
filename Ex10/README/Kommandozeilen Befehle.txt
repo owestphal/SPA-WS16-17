@@ -1,0 +1,5 @@
+1b)
+java -cp C:/git/spa1617/resources/soot-trunk.jar soot.Main -cp .;"C:/Program Files/Java/jre1.8.0_111/lib/rt.jar" B -f J
+
+1c)
+java -cp C:/git/spa1617/resources/soot-trunk.jar soot.Main -cp .;"C:/Program Files/Java/jre1.8.0_111/lib/rt.jar" -f J -p jap.lvtagger on B
