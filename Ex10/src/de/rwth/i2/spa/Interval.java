@@ -145,18 +145,23 @@ public class Interval {
 		 * TODO return true iff other represents the same interval as this,
 		 * i.e., have the same bounds
 		 */
-		boolean eq = false;
-		if (other instanceof EmptyInterval && this instanceof EmptyInterval) {
-			eq = true;
-		} else if (other instanceof NonEmptyInterval && this instanceof NonEmptyInterval) {
-			NonEmptyInterval otherNE = (NonEmptyInterval) other;
-			NonEmptyInterval thisNE = (NonEmptyInterval) this;
-			eq = thisNE.getLowerBound().equals(otherNE.getLowerBound())
-					&& thisNE.getUpperBound().equals(otherNE.getUpperBound());
-		} else {
-			eq = false;
+		if(this == other)						// same reference?
+			return true;
+		if(!(other instanceof Interval)){		// same type?
+			return false;
+		} else{
+			Interval otherInterval = (Interval) other;
+			if(otherInterval.isEmpty() && this.isEmpty())
+				return true;
+			if(otherInterval.isNonEmpty() && this.isNonEmpty()){
+				NonEmptyInterval otherNE = (NonEmptyInterval) other;
+				NonEmptyInterval thisNE = (NonEmptyInterval) this;
+				return thisNE.getLowerBound().equals(otherNE.getLowerBound())
+						&& thisNE.getUpperBound().equals(otherNE.getUpperBound());
+			}
 		}
-		return eq;
+		
+		return false;							// something strange happened if we end up here
 	}
 
 	public static Interval plus(Interval left, Interval right) {
