@@ -94,12 +94,17 @@ public class Interval {
 		 * TODO return the result of applying the widening operator from the
 		 * lecture to this interval (left) and the other given interval (right)
 		 */
-		Interval result;
-		if (this instanceof EmptyInterval) {
-			result = other;
-		} else if (other instanceof EmptyInterval) {
-			result = this;
-		} else if (this instanceof NonEmptyInterval && other instanceof NonEmptyInterval) {
+
+		if(this.isEmpty() && other.isEmpty()){
+			return new EmptyInterval();
+		}
+		else{
+			if (this.isEmpty()) {
+				return other;
+			} else if (other.isEmpty()) {
+				return this;
+			}
+			
 			Bound lower;
 			Bound upper;
 			Bound x1 = ((NonEmptyInterval) this).getLowerBound();
@@ -118,10 +123,9 @@ public class Interval {
 			} else {
 				upper = new NegInfinity();
 			}
-
-			result = new NonEmptyInterval(lower, upper);
+			
+			return new NonEmptyInterval(lower, upper);
 		}
-		return null;
 
 	}
 
