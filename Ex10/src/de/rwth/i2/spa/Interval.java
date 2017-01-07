@@ -171,8 +171,8 @@ public class Interval {
 		 * right
 		 */
 
-		Interval result;
-		if (left instanceof NonEmptyInterval && right instanceof NonEmptyInterval) {
+		Interval result = new EmptyInterval();
+		if (left.isNonEmpty() && right.isNonEmpty()) {
 			Bound lower = Bound.plus(((NonEmptyInterval) left).getLowerBound(),
 					((NonEmptyInterval) right).getLowerBound());
 			Bound upper = Bound.plus(((NonEmptyInterval) left).getUpperBound(),
@@ -181,12 +181,12 @@ public class Interval {
 			// check if result is empty interval
 			result = new NonEmptyInterval(lower, upper);
 			if (result.satisfiableBounds() == false) {
-				result = new EmptyInterval();
-			}
+				return new EmptyInterval();
+			}else
+				return result;
 		} else {
-			result = new EmptyInterval();
+			return new EmptyInterval();
 		}
-		return result;
 	}
 
 	public static Interval minus(Interval left, Interval right) {
@@ -195,8 +195,8 @@ public class Interval {
 		 * TODO return an interval representing the difference of intervals left
 		 * and right
 		 */
-		Interval result;
-		if (left instanceof NonEmptyInterval && right instanceof NonEmptyInterval) {
+		Interval result = new EmptyInterval();
+		if (left.isNonEmpty() && right.isNonEmpty()) {
 			Bound lower = Bound.minus(((NonEmptyInterval) left).getLowerBound(),
 					((NonEmptyInterval) right).getLowerBound());
 			Bound upper = Bound.minus(((NonEmptyInterval) left).getUpperBound(),
@@ -205,12 +205,12 @@ public class Interval {
 			// check if result is empty interval
 			result = new NonEmptyInterval(lower, upper);
 			if (result.satisfiableBounds() == false) {
-				result = new EmptyInterval();
-			}
+				return new EmptyInterval();
+			}else
+				return result;
 		} else {
-			result = new EmptyInterval();
+			return new EmptyInterval();
 		}
-		return result;
 	}
 
 	public static Interval mul(Interval left, Interval right) {
@@ -220,7 +220,6 @@ public class Interval {
 		 * and right
 		 */
 
-		Interval result;
 		if (left instanceof NonEmptyInterval && right instanceof NonEmptyInterval) {
 			// left = [x1,x2], right = [y1,y2]
 			Bound[] x = { ((NonEmptyInterval) left).getLowerBound(), ((NonEmptyInterval) left).getUpperBound() };
@@ -230,22 +229,20 @@ public class Interval {
 			Bound lower = new PosInfinity();
 			Bound upper = new NegInfinity();
 
-			for (int i = 0; i < 2; i++) {
-				for (int j = 0; j < 2; j++) {
-					Bound candidate = Bound.mul(x[i], y[j]);
-					if (Bound.smallerThen(candidate, lower)) {
+			for (Bound x_i : x){
+				for (Bound y_i : y){
+					Bound candidate = Bound.mul(x_i,y_i);
+					if (Bound.smallerThen(candidate, lower))
 						lower = candidate;
-					}
-					if (Bound.greaterThen(candidate, upper)) {
+					if (Bound.greaterThen(candidate, upper))
 						upper = candidate;
-					}
 				}
 			}
-			result = new NonEmptyInterval(lower, upper);
+				
+			return new NonEmptyInterval(lower, upper);
 		} else {
-			result = new EmptyInterval();
+			return new EmptyInterval();
 		}
-		return result;
 	}
 
 	public String toString() {
@@ -256,9 +253,12 @@ public class Interval {
 		 * (no additional whitespace), where x,y are either integers, "-inf" for
 		 * minus infinity, or "inf" for plus infinity
 		 */
-
-		return this.toString();
-
+		if (this.isEmpty()){
+			return "[]";
+		}else{
+			NonEmptyInterval thisObject = (NonEmptyInterval) this;
+			return "[" + thisObject.getLowerBound() + "," + thisObject.getUpperBound() + "]";
+		}
 	}
 
 }
