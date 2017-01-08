@@ -2,11 +2,21 @@ package de.rwth.i2.spa;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
+import soot.Immediate;
+import soot.Local;
 import soot.Unit;
 import soot.Value;
 import soot.ValueBox;
+import soot.jimple.AddExpr;
 import soot.jimple.AssignStmt;
+import soot.jimple.IntConstant;
+import soot.jimple.MulExpr;
+import soot.jimple.SubExpr;
+import soot.jimple.internal.JAddExpr;
+import soot.jimple.internal.JMulExpr;
+import soot.jimple.internal.JSubExpr;
 import soot.tagkit.StringTag;
 import soot.tagkit.Tag;
 import soot.toolkits.graph.DirectedGraph;
@@ -41,7 +51,29 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 			Value leftOp = assignUnit.getLeftOp();
 			Value rightOp = assignUnit.getRightOp();
 			
-			
+			if(rightOp instanceof Immediate){												//TODO: Nasty Type Collisions possible here currently we support only IntBound for Constants
+				BiConsumer<String, Interval> computeConstant = (k, v) -> {
+					if(k.equals(leftOp.toString())){
+						NonEmptyInterval i = (NonEmptyInterval) in.delta.get(k);
+						Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
+						in.delta.replace(k, i, new NonEmptyInterval(bounds, bounds));
+					}
+				};
+				in.delta.forEach(computeConstant);
+				copy(in,out);
+			}
+			if(rightOp instanceof Local){
+				System.out.println("Found Variable");
+			}
+			if(rightOp instanceof AddExpr){
+				System.out.println("Found AddExpr");
+			}
+			if(rightOp instanceof SubExpr){
+				System.out.println("Found SubExpr");
+			}
+			if(rightOp instanceof MulExpr){
+				System.out.println("Found MulExpr");
+			}
 		}
 	}
 
