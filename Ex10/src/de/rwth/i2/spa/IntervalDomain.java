@@ -23,10 +23,7 @@ public class IntervalDomain {
 		 */
 		delta = new TreeMap<String, Interval>();
 		for (Value var : variables) {
-			if(var instanceof Local){
-				Local varLocal = (Local) var;
-				delta.put(varLocal.getName(), initialInterval);
-			}
+				delta.put(var.toString(), initialInterval);
 		}
 	}
 
