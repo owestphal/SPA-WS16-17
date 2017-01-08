@@ -1,6 +1,7 @@
 package de.rwth.i2.spa;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -52,21 +53,28 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 			Value rightOp = assignUnit.getRightOp();
 			
 			if(rightOp instanceof Immediate){												//TODO: Nasty Type Collisions possible here currently we support only IntBound for Constants
-				BiConsumer<String, Interval> computeConstant = (k, v) -> {
-					if(k.equals(leftOp.toString())){
-						NonEmptyInterval i = (NonEmptyInterval) in.delta.get(k);
-						Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
-						in.delta.replace(k, i, new NonEmptyInterval(bounds, bounds));
-					}
-				};
-				in.delta.forEach(computeConstant);
+				Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));			
 				copy(in,out);
 			}
-			if(rightOp instanceof Local){
+			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
 				System.out.println("Found Variable");
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));			
+				copy(in,out);
 			}
 			if(rightOp instanceof AddExpr){
+				List<ValueBox> values = rightOp.getUseBoxes();
+				
 				System.out.println("Found AddExpr");
+				BiConsumer<String, Interval> computeVariable = (k, v) -> {
+					if(k.equals(leftOp.toString())){
+						NonEmptyInterval i = (NonEmptyInterval) in.delta.get(k);
+						
+						in.delta.replace(k, i, in.delta.get(rightOp.toString()));
+					}
+				};
+				in.delta.forEach(computeVariable);
+				copy(in,out);
 			}
 			if(rightOp instanceof SubExpr){
 				System.out.println("Found SubExpr");
