@@ -2,6 +2,7 @@ package de.rwth.i2.spa;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -58,29 +59,62 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				copy(in,out);
 			}
 			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
-				System.out.println("Found Variable");
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));			
 				copy(in,out);
 			}
 			if(rightOp instanceof AddExpr){
+				Bound lowerBound = new IntBound(0);
+				Bound upperBound = new IntBound(0);
 				List<ValueBox> values = rightOp.getUseBoxes();
-				
-				System.out.println("Found AddExpr");
-				BiConsumer<String, Interval> computeVariable = (k, v) -> {
-					if(k.equals(leftOp.toString())){
-						NonEmptyInterval i = (NonEmptyInterval) in.delta.get(k);
-						
-						in.delta.replace(k, i, in.delta.get(rightOp.toString()));
+				ListIterator<ValueBox> lit = values.listIterator();
+				while (lit.hasNext()){
+					ValueBox currentValue = lit.next();
+					if(currentValue instanceof Local){
+						Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
+						Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+					}else if(currentValue instanceof Immediate){
+						Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
 					}
-				};
-				in.delta.forEach(computeVariable);
-				copy(in,out);
+				}
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
+				copy(in,out);			
 			}
 			if(rightOp instanceof SubExpr){
-				System.out.println("Found SubExpr");
+				Bound lowerBound = new IntBound(0);
+				Bound upperBound = new IntBound(0);
+				List<ValueBox> values = rightOp.getUseBoxes();
+				ListIterator<ValueBox> lit = values.listIterator();
+				while (lit.hasNext()){
+					ValueBox currentValue = lit.next();
+					if(currentValue instanceof Local){
+						Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
+						Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+					}else if(currentValue instanceof Immediate){
+						Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+					}
+				}
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
+				copy(in,out);
 			}
 			if(rightOp instanceof MulExpr){
-				System.out.println("Found MulExpr");
+				Bound lowerBound = new IntBound(0);
+				Bound upperBound = new IntBound(0);
+				List<ValueBox> values = rightOp.getUseBoxes();
+				ListIterator<ValueBox> lit = values.listIterator();
+				while (lit.hasNext()){
+					ValueBox currentValue = lit.next();
+					if(currentValue instanceof Local){
+						Bound.mul(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
+						Bound.mul(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+					}else if(currentValue instanceof Immediate){
+						Bound.mul(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						Bound.mul(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+					}
+				}
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
+				copy(in,out);
 			}
 		}
 	}
