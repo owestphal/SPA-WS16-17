@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import soot.Immediate;
 import soot.Local;
@@ -13,12 +12,8 @@ import soot.Value;
 import soot.ValueBox;
 import soot.jimple.AddExpr;
 import soot.jimple.AssignStmt;
-import soot.jimple.IntConstant;
 import soot.jimple.MulExpr;
 import soot.jimple.SubExpr;
-import soot.jimple.internal.JAddExpr;
-import soot.jimple.internal.JMulExpr;
-import soot.jimple.internal.JSubExpr;
 import soot.tagkit.StringTag;
 import soot.tagkit.Tag;
 import soot.toolkits.graph.DirectedGraph;
@@ -70,11 +65,11 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				while (lit.hasNext()){
 					ValueBox currentValue = lit.next();
 					if(currentValue instanceof Local){
-						Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
-						Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+						lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
+						upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
-						Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
-						Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
@@ -88,29 +83,29 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				while (lit.hasNext()){
 					ValueBox currentValue = lit.next();
 					if(currentValue instanceof Local){
-						Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
-						Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+						lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
+						upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
-						Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
-						Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						upperBound = Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
 				copy(in,out);
 			}
 			if(rightOp instanceof MulExpr){
-				Bound lowerBound = new IntBound(0);
-				Bound upperBound = new IntBound(0);
+				Bound lowerBound = new IntBound(1);
+				Bound upperBound = new IntBound(1);
 				List<ValueBox> values = rightOp.getUseBoxes();
 				ListIterator<ValueBox> lit = values.listIterator();
 				while (lit.hasNext()){
-					ValueBox currentValue = lit.next();
+					Value currentValue = lit.next().getValue();
 					if(currentValue instanceof Local){
-						Bound.mul(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
-						Bound.mul(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+						lowerBound = Bound.mul(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+						upperBound = Bound.mul(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
-						Bound.mul(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
-						Bound.mul(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						lowerBound = Bound.mul(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
+						upperBound = Bound.mul(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
@@ -170,9 +165,9 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		/*
 		 * TODO Returns the initial domain element of all labels
 		 */
-
-		Interval initialIn = Interval.getLargestElement();
-		IntervalDomain initialInDom = new IntervalDomain(this.variables, initialIn);
+		
+		Interval newInitial = Interval.getLargestElement();
+		IntervalDomain initialInDom = new IntervalDomain(this.variables, newInitial);
 		return initialInDom;
 	}
 
