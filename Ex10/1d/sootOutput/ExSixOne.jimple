@@ -1,0 +1,56 @@
+class ExSixOne extends java.lang.Object
+{
+/*ExSixOne.java*/
+
+    void <init>()
+    {
+        ExSixOne r0;
+
+        r0 := @this: ExSixOne;
+/*r0:[[-inf,inf]]*/
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+/*r0:[[-inf,inf]]*/
+
+        return;
+/*r0:[[-inf,inf]]*/
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+        int i0, i1, $i2;
+
+        r0 := @parameter0: java.lang.String[];
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        i0 = -1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        i1 = -2 * -1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+     label1:
+        $i2 = i1 - 1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        if $i2 <= i0 goto label2;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        i1 = i1 - 1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        if i0 <= -2 goto label1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        i0 = i0 - 1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+        goto label1;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+
+     label2:
+        return;
+/*$i2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+    }
+}
