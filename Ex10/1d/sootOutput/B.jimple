@@ -34,13 +34,13 @@ class B extends java.lang.Object
         int i2, i3;
 
         r0 := @this: B;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[0,0]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         i2 = 13 - 17;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[0,0]] i3:[[0,0]] r0:[[-inf,inf]]*/
 
         i3 = 23 + i2;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[0,0]] i3:[[0,0]] r0:[[-inf,inf]]*/
 
         $r1 = <java.lang.System: java.io.PrintStream out>;
 /*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
