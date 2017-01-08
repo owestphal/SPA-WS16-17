@@ -63,13 +63,13 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				List<ValueBox> values = rightOp.getUseBoxes();
 				ListIterator<ValueBox> lit = values.listIterator();
 				while (lit.hasNext()){
-					ValueBox currentValue = lit.next();
+					Value currentValue = lit.next().getValue();
 					if(currentValue instanceof Local){
-						lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
-						upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+						lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+						upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
-						lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
-						upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
+						upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
@@ -81,13 +81,13 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				List<ValueBox> values = rightOp.getUseBoxes();
 				ListIterator<ValueBox> lit = values.listIterator();
 				while (lit.hasNext()){
-					ValueBox currentValue = lit.next();
+					Value currentValue = lit.next().getValue();
 					if(currentValue instanceof Local){
-						lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getLowerBound());
-						upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.getValue().toString())).getUpperBound());
+						lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+						upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
-						lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
-						upperBound = Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.getValue().toString())));
+						lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
+						upperBound = Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
