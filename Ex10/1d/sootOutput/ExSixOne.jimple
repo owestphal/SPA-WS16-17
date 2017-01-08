@@ -33,19 +33,19 @@ class ExSixOne extends java.lang.Object
 
      label1:
         $i2 = i1 - 1;
-/*$i2:[[inf,-inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         if $i2 <= i0 goto label2;
-/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[inf,-inf]] r0:[[-inf,inf]]*/
+/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         i1 = i1 - 1;
-/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[inf,-inf]] r0:[[-inf,inf]]*/
+/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         if i0 <= -2 goto label1;
-/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[inf,-inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         i0 = i0 - 1;
-/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[inf,-inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
 
         goto label1;
 /*$i2:[[-inf,inf]] $r1:[[-inf,inf]] $r2:[[-inf,inf]] i0:[[-inf,inf]] i1:[[-inf,inf]] r0:[[-inf,inf]]*/
