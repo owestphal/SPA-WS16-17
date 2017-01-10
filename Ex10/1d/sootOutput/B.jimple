@@ -7,13 +7,13 @@ class B extends java.lang.Object
         B r0;
 
         r0 := @this: B;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         specialinvoke r0.<java.lang.Object: void <init>()>();
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         return;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
     }
 
     public static void main(java.lang.String[])
@@ -21,10 +21,10 @@ class B extends java.lang.Object
         java.lang.String[] r0;
 
         r0 := @parameter0: java.lang.String[];
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         return;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
     }
 
     public void foo()
@@ -34,27 +34,27 @@ class B extends java.lang.Object
         int i2, i3;
 
         r0 := @this: B;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-4,-4]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[[-4,-4]] i3:[] r0:[]*/
 
         i2 = 13 - 17;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-4,-4]] i3:[[19,19]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[[-4,-4]] i3:[[19,19]] r0:[]*/
 
         i3 = 23 + i2;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-4,-4]] i3:[[19,19]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[[-4,-4]] i3:[[19,19]] r0:[]*/
 
         $r1 = <java.lang.System: java.io.PrintStream out>;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[] i3:[] r0:[]*/
 
         virtualinvoke $r1.<java.io.PrintStream: void println(int)>(i3);
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[] i3:[] r0:[]*/
 
         $r2 = <java.lang.System: java.io.PrintStream out>;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[] i3:[] r0:[]*/
 
         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i2);
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[] i3:[] r0:[]*/
 
         return;
-/*$r1:[[-inf,inf]] $r2:[[-inf,inf]] i2:[[-inf,inf]] i3:[[-inf,inf]] r0:[[-inf,inf]]*/
+/*$r1:[] $r2:[] i2:[] i3:[] r0:[]*/
     }
 }

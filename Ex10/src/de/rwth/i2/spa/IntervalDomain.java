@@ -68,6 +68,7 @@ public class IntervalDomain {
 		 * TODO return the least upper bound of interval domain elements this
 		 * and other
 		 */
+
 		BiConsumer<String, Interval> computeLubWithOther = (k, v) -> {
 			Interval i = other.delta.get(k);
 			v = v.lub(i);
