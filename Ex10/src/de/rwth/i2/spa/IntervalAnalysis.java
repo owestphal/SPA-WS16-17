@@ -49,10 +49,15 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 			Value leftOp = assignUnit.getLeftOp();
 			Value rightOp = assignUnit.getRightOp();
 
+			if(!in.delta.containsKey(leftOp.toString())){
+				in.delta.put(leftOp.toString(), new EmptyInterval());
+			}
+			
 			if(rightOp instanceof Immediate){												//TODO: Nasty Type Collisions possible here currently we support only IntBound for Constants
 				Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));
 				copy(in,out);
+				
 			}
 			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
 				Interval currentInterval = in.delta.get(rightOp.toString());
@@ -185,7 +190,13 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * merge: 1) Use the least upper bound between two interval domain
 		 * elements 2) Use the merge operator defined in SPA lecture 7
 		 */
-
+		
+		if(in1.isEmpty() && !in2.isEmpty())
+			copy(in2,dest);
+		
+		if(in2.isEmpty() && !in1.isEmpty())
+			copy(in1,dest);
+		
 		if (useWidening) {
 
 			// TODO implement merge with widening here
@@ -213,8 +224,8 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		/*
 		 * TODO Returns the initial domain element of all labels
 		 */
-
 		IntervalDomain emptySet = new IntervalDomain();
+		//IntervalDomain emptySet = new IntervalDomain(this.variables, new EmptyInterval());
 		return emptySet;
 	}
 
