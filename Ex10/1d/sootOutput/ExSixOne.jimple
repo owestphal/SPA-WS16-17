@@ -23,10 +23,10 @@ class ExSixOne extends java.lang.Object
         int i0, i1, $i2;
 
         r0 := @parameter0: java.lang.String[];
-/*i0:[-1,-1]*/
+/*i0:[]*/
 
         i0 = -1;
-/*i0:[-1,-1] i1:[2,2]*/
+/*i0:[-1,-1] i1:[]*/
 
         i1 = -2 * -1;
 /*i0:[-1,-1] i1:[2,2]*/
@@ -36,13 +36,13 @@ class ExSixOne extends java.lang.Object
 /*$i2:[1,1] i0:[-1,-1] i1:[2,2]*/
 
         if $i2 <= i0 goto label2;
-/*$i2:[1,1] $r1:[] i0:[-1,-1] i1:[-inf,1]*/
+/*$i2:[1,1] $r1:[] i0:[-1,-1] i1:[2,2]*/
 
         i1 = i1 - 1;
 /*$i2:[1,1] $r1:[] i0:[-1,-1] i1:[-inf,1]*/
 
         if i0 <= -2 goto label1;
-/*$i2:[1,1] $r1:[] i0:[-inf,-2] i1:[-inf,1]*/
+/*$i2:[1,1] $r1:[] i0:[-1,-1] i1:[-inf,1]*/
 
         i0 = i0 - 1;
 /*$i2:[1,1] $r1:[] i0:[-inf,-2] i1:[-inf,1]*/

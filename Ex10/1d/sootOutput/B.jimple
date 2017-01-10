@@ -34,13 +34,13 @@ class B extends java.lang.Object
         int i2, i3;
 
         r0 := @this: B;
-/*i2:[-4,-4]*/
+/*i2:[]*/
 
         i2 = 13 - 17;
-/*i2:[-4,-4] i3:[19,19]*/
+/*i2:[-4,-4] i3:[]*/
 
         i3 = 23 + i2;
-/*$r1:[] i2:[-4,-4] i3:[19,19]*/
+/*$r1:[]*/
 
         $r1 = <java.lang.System: java.io.PrintStream out>;
 /**/

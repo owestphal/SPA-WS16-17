@@ -45,6 +45,9 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 */
 		boolean fix = false;
 		if(unit instanceof AssignStmt){
+			//Unit debugUnit = graph.getPredsOf(unit).get(0);
+			//IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
+			
 			AssignStmt assignUnit = (AssignStmt) unit;
 			Value leftOp = assignUnit.getLeftOp();
 			Value rightOp = assignUnit.getRightOp();
@@ -53,19 +56,15 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				in.delta.put(leftOp.toString(), new EmptyInterval());
 			}
 			
-			if(rightOp instanceof Immediate){												//TODO: Nasty Type Collisions possible here currently we support only IntBound for Constants
+			//merge(preIntDom,in,out);
+			
+			if(rightOp instanceof Immediate){
 				Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));
 				copy(in,out);
 				
 			}
-			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
-				Interval currentInterval = in.delta.get(rightOp.toString());
-				if(currentInterval instanceof EmptyInterval){
-					Unit debugUnit = graph.getPredsOf(unit).get(0);
-					IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
-					copy(preIntDom,in);
-				}
+			if(rightOp instanceof Local){
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));
 				copy(in,out);
 			}
@@ -77,19 +76,9 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 
 				while (lit.hasNext()){
 					Value currentValue = lit.next().getValue();
-					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptyInterval){
-						Unit debugUnit = graph.getPredsOf(unit).get(0);
-						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
-						copy(preIntDom,in);
-						fix = true;
-					}
 					if(currentValue instanceof Local){
 						lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
-						if(fix)
-							upperBound = new PosInfinity();
-						else
-							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
+						upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
 						lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
 						upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -106,20 +95,10 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				for(int i = 0; i < values.size();i++){
 
 					Value currentValue = values.get(i).getValue();
-
-					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptyInterval){
-						Unit debugUnit = graph.getPredsOf(unit).get(0);
-						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
-						copy(preIntDom,in);
-						fix = true;
-					}
+					
 					if(i==0){
 						if(currentValue instanceof Local){
-							if(fix)
-								lowerBound = new NegInfinity();
-							else
-								lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+							lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -127,10 +106,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 						}
 					}else{
 						if(currentValue instanceof Local){
-							if(fix)
-								lowerBound = new NegInfinity();
-							else
-								lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+							lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -148,13 +124,6 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				ListIterator<ValueBox> lit = values.listIterator();
 				while (lit.hasNext()){
 					Value currentValue = lit.next().getValue();
-					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptyInterval){
-						Unit debugUnit = graph.getPredsOf(unit).get(0);
-						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
-						copy(preIntDom,in);
-						fix = true;
-					}
 					if(currentValue instanceof Local){
 						lowerBound = Bound.mul(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 						upperBound = Bound.mul(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
@@ -166,6 +135,8 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
 				copy(in,out);
 			}
+		}else{
+			copy(in,out);
 		}
 	}
 
