@@ -29,7 +29,7 @@ public class Interval {
 		boolean result = false;
 		if (this.isEmpty()) {
 			result = true;
-		} else {
+		} else{
 			Bound lower = ((NonEmptyInterval) this).getLowerBound();
 			Bound upper = ((NonEmptyInterval) this).getUpperBound();
 
@@ -45,7 +45,7 @@ public class Interval {
 				}
 			}
 		}
-
+		
 		return result;
 	}
 
@@ -63,7 +63,7 @@ public class Interval {
 			} else if (other.isEmpty()) {
 				return this;
 			}
-
+			
 			Bound lower;
 			Bound upper;
 
@@ -82,7 +82,7 @@ public class Interval {
 			} else {
 				upper = thisUpper;
 			}
-
+			
 			return new NonEmptyInterval(lower, upper);
 		}
 	}
@@ -103,7 +103,7 @@ public class Interval {
 			} else if (other.isEmpty()) {
 				return this;
 			}
-
+			
 			Bound lower;
 			Bound upper;
 			Bound x1 = ((NonEmptyInterval) this).getLowerBound();
@@ -122,7 +122,7 @@ public class Interval {
 			} else {
 				upper = new PosInfinity();
 			}
-
+			
 			return new NonEmptyInterval(lower, upper);
 		}
 
@@ -159,7 +159,7 @@ public class Interval {
 						&& thisNE.getUpperBound().equals(otherNE.getUpperBound());
 			}
 		}
-
+		
 		return false;							// something strange happened if we end up here
 	}
 
@@ -247,7 +247,7 @@ public class Interval {
 						upper = candidate;
 				}
 			}
-
+				
 			return new NonEmptyInterval(lower, upper);
 		} else {
 			return new EmptyInterval();
