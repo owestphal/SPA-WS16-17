@@ -170,9 +170,9 @@ public class Interval {
 		 * TODO return an interval representing the sum of intervals left and
 		 * right
 		 */
-		if(left instanceof EmptySet)
+		if(left instanceof EmptyInterval)
 			return right;
-		if(right instanceof EmptySet)
+		if(right instanceof EmptyInterval)
 			return left;
 		Interval result = new EmptyInterval();
 		if (left.isNonEmpty() && right.isNonEmpty()) {
@@ -198,9 +198,9 @@ public class Interval {
 		 * TODO return an interval representing the difference of intervals left
 		 * and right
 		 */
-		if(left instanceof EmptySet)
+		if(left instanceof EmptyInterval)
 			return right;
-		if(right instanceof EmptySet)
+		if(right instanceof EmptyInterval)
 			return left;
 		Interval result = new EmptyInterval();
 		if (left.isNonEmpty() && right.isNonEmpty()) {
@@ -226,9 +226,9 @@ public class Interval {
 		 * TODO return an interval representing the product of intervals left
 		 * and right
 		 */
-		if(left instanceof EmptySet)
+		if(left instanceof EmptyInterval)
 			return right;
-		if(right instanceof EmptySet)
+		if(right instanceof EmptyInterval)
 			return left;
 		if (left instanceof NonEmptyInterval && right instanceof NonEmptyInterval) {
 			// left = [x1,x2], right = [y1,y2]

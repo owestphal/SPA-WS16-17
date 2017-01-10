@@ -7,13 +7,13 @@ class ExSixOne extends java.lang.Object
         ExSixOne r0;
 
         r0 := @this: ExSixOne;
-/*r0:[]*/
+/*r0:[[]]*/
 
         specialinvoke r0.<java.lang.Object: void <init>()>();
-/*r0:[]*/
+/*r0:[[]]*/
 
         return;
-/*r0:[]*/
+/*r0:[[]]*/
     }
 
     public static void main(java.lang.String[])
@@ -23,47 +23,47 @@ class ExSixOne extends java.lang.Object
         int i0, i1, $i2;
 
         r0 := @parameter0: java.lang.String[];
-/*$i2:[] $r1:[] $r2:[] i0:[[-1,-1]] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[]] r0:[[]]*/
 
         i0 = -1;
-/*$i2:[] $r1:[] $r2:[] i0:[[-1,-1]] i1:[[2,2]] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[2,2]] r0:[[]]*/
 
         i1 = -2 * -1;
-/*$i2:[] $r1:[] $r2:[] i0:[[-1,-1]] i1:[[2,2]] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[2,2]] r0:[[]]*/
 
      label1:
         $i2 = i1 - 1;
-/*$i2:[[-inf,1]] $r1:[] $r2:[] i0:[[-1,-1]] i1:[[2,2]] r0:[]*/
+/*$i2:[[-inf,1]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[2,2]] r0:[[]]*/
 
         if $i2 <= i0 goto label2;
-/*$i2:[[-inf,1]] $r1:[] $r2:[] i0:[[-1,-1]] i1:[[-inf,1]] r0:[]*/
+/*$i2:[[-inf,1]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[-inf,1]] r0:[[]]*/
 
         i1 = i1 - 1;
-/*$i2:[[-inf,1]] $r1:[] $r2:[] i0:[[-1,-1]] i1:[[-inf,1]] r0:[]*/
+/*$i2:[[-inf,1]] $r1:[[]] $r2:[[]] i0:[[-1,-1]] i1:[[-inf,1]] r0:[[]]*/
 
         if i0 <= -2 goto label1;
-/*$i2:[[-inf,1]] $r1:[] $r2:[] i0:[[-inf,-2]] i1:[[-inf,1]] r0:[]*/
+/*$i2:[[-inf,1]] $r1:[[]] $r2:[[]] i0:[[-inf,-2]] i1:[[-inf,1]] r0:[[]]*/
 
         i0 = i0 - 1;
-/*$i2:[[-inf,1]] $r1:[] $r2:[] i0:[[-inf,-2]] i1:[[-inf,1]] r0:[]*/
+/*$i2:[[-inf,1]] $r1:[[]] $r2:[[]] i0:[[-inf,-2]] i1:[[-inf,1]] r0:[[]]*/
 
         goto label1;
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
 
      label2:
         $r1 = <java.lang.System: java.io.PrintStream out>;
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
 
         virtualinvoke $r1.<java.io.PrintStream: void println(int)>(i0);
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
 
         $r2 = <java.lang.System: java.io.PrintStream out>;
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
 
         virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i1);
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
 
         return;
-/*$i2:[] $r1:[] $r2:[] i0:[] i1:[] r0:[]*/
+/*$i2:[[]] $r1:[[]] $r2:[[]] i0:[[]] i1:[[]] r0:[[]]*/
     }
 }

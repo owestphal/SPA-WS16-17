@@ -56,7 +56,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 			}
 			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case				
 				Interval currentInterval = in.delta.get(rightOp.toString());
-				if(currentInterval instanceof EmptySet){
+				if(currentInterval instanceof EmptyInterval){
 					Unit debugUnit = graph.getPredsOf(unit).get(0);
 					IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
 					copy(preIntDom,in);
@@ -73,7 +73,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				while (lit.hasNext()){
 					Value currentValue = lit.next().getValue();			
 					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptySet){
+					if(currentInterval instanceof EmptyInterval){
 						Unit debugUnit = graph.getPredsOf(unit).get(0);
 						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
 						copy(preIntDom,in);
@@ -103,7 +103,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 					Value currentValue = values.get(i).getValue();
 					
 					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptySet){
+					if(currentInterval instanceof EmptyInterval){
 						Unit debugUnit = graph.getPredsOf(unit).get(0);
 						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
 						copy(preIntDom,in);
@@ -144,7 +144,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				while (lit.hasNext()){
 					Value currentValue = lit.next().getValue();
 					Interval currentInterval = in.delta.get(currentValue.toString());
-					if(currentInterval instanceof EmptySet){
+					if(currentInterval instanceof EmptyInterval){
 						Unit debugUnit = graph.getPredsOf(unit).get(0);
 						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
 						copy(preIntDom,in);
@@ -204,7 +204,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * TODO Returns the initial domain element to start the fixed point
 		 * computation
 		 */
-		return newInitialFlow();
+		return new IntervalDomain(this.variables, Interval.getLargestElement());
 	}
 
 	@Override
@@ -214,8 +214,8 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * TODO Returns the initial domain element of all labels
 		 */
 		
-		IntervalDomain initialInDom = new IntervalDomain(this.variables, new EmptySet());
-		return initialInDom;
+		IntervalDomain emptySet = new IntervalDomain(this.variables, new EmptyInterval());
+		return emptySet;
 	}
 
 	/*******************************************************************************************
