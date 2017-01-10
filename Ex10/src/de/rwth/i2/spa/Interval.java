@@ -29,24 +29,23 @@ public class Interval {
 		boolean result = false;
 		if (this.isEmpty()) {
 			result = true;
-		} else if (this.isEmpty()) {
+		} else{
 			Bound lower = ((NonEmptyInterval) this).getLowerBound();
 			Bound upper = ((NonEmptyInterval) this).getUpperBound();
 
 			if (upper instanceof PosInfinity) {
 				result = true;
 			} else if (lower instanceof NegInfinity) {
-				result = true;
+					result = true;
 			} else if (lower instanceof IntBound && upper instanceof IntBound) {
 				if (((IntBound) lower).value <= ((IntBound) upper).value) {
-					result = true;
+						result = true;
 				} else {
-					result = false;
+						result = false;
 				}
 			}
-		} else {
-			result = false;
 		}
+		
 		return result;
 	}
 
@@ -121,7 +120,7 @@ public class Interval {
 			if (!Bound.smallerThen(x2, y2)) { // x2 >= y2
 				upper = x2;
 			} else {
-				upper = new NegInfinity();
+				upper = new PosInfinity();
 			}
 			
 			return new NonEmptyInterval(lower, upper);
