@@ -85,7 +85,7 @@ public class IntervalDomain {
 		} else {
 			BiConsumer<String, Interval> computeLubWithOther = (k, v) -> {
 				Interval i = other.delta.get(k);
-				v = v.lub(i);
+				this.delta.replace(k,v.lub(i));
 			};
 			this.delta.forEach(computeLubWithOther);
 			result = this;
@@ -109,7 +109,7 @@ public class IntervalDomain {
  		} else {
 			BiConsumer<String, Interval> computeWidenWithOther = (k, v) -> {
 				Interval i = other.delta.get(k);
-				v = v.widen(i);
+				this.delta.replace(k,v.widen(i));
 			};
 			this.delta.forEach(computeWidenWithOther);
 			result = this;
