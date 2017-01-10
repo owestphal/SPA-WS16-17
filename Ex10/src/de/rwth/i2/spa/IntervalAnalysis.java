@@ -88,32 +88,33 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				copy(in,out);
 			}
 			if(rightOp instanceof SubExpr){
+				
+				List<ValueBox> values = rightOp.getUseBoxes();
+				
 				Bound lowerBound = new IntBound(0);
 				Bound upperBound = new IntBound(0);
-
-				List<ValueBox> values = rightOp.getUseBoxes();
-				for(int i = 0; i < values.size();i++){
-
+				
+				Value initValue = values.get(0).getValue();
+				if(initValue instanceof Local){
+					lowerBound = ((NonEmptyInterval) in.delta.get(initValue.toString())).getLowerBound();
+					upperBound = ((NonEmptyInterval) in.delta.get(initValue.toString())).getUpperBound();
+				}
+				else if(initValue instanceof Immediate){
+					lowerBound = new IntBound(Integer.valueOf(initValue.toString()));
+					upperBound = new IntBound(Integer.valueOf(initValue.toString()));
+				}
+				
+				for(int i = 1; i < values.size();i++){
 					Value currentValue = values.get(i).getValue();
-					
-					if(i==0){
-						if(currentValue instanceof Local){
-							lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
-							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
-						}else if(currentValue instanceof Immediate){
-							lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
-							upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
-						}
-					}else{
-						if(currentValue instanceof Local){
-							lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
-							upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
-						}else if(currentValue instanceof Immediate){
-							lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
-							upperBound = Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
-						}
+					if(currentValue instanceof Local){
+						lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+						upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
+					}else if(currentValue instanceof Immediate){
+						lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
+						upperBound = Bound.minus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 					}
 				}
+				
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
 				copy(in,out);
 			}
@@ -161,12 +162,6 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * merge: 1) Use the least upper bound between two interval domain
 		 * elements 2) Use the merge operator defined in SPA lecture 7
 		 */
-		
-		if(in1.isEmpty() && !in2.isEmpty())
-			copy(in2,dest);
-		
-		if(in2.isEmpty() && !in1.isEmpty())
-			copy(in1,dest);
 		
 		if (useWidening) {
 

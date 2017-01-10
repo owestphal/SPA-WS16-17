@@ -36,15 +36,16 @@ public class Interval {
 			if (upper instanceof PosInfinity) {
 				result = true;
 			} else if (lower instanceof NegInfinity) {
-				result = true;
+					result = true;
 			} else if (lower instanceof IntBound && upper instanceof IntBound) {
 				if (((IntBound) lower).value <= ((IntBound) upper).value) {
-					result = true;
+						result = true;
 				} else {
-					result = false;
+						result = false;
 				}
 			}
 		}
+
 		return result;
 	}
 
