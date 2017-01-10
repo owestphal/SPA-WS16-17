@@ -114,7 +114,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 							if(fix)
 								lowerBound = new NegInfinity();	
 							else
-								lowerBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+								lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -125,7 +125,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 							if(fix)
 								lowerBound = new NegInfinity();
 							else
-								lowerBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+								lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
