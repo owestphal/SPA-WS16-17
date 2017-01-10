@@ -33,7 +33,7 @@ public class Interval {
 			Bound lower = ((NonEmptyInterval) this).getLowerBound();
 			Bound upper = ((NonEmptyInterval) this).getUpperBound();
 
-			if (lower instanceof PosInfinity && upper instanceof PosInfinity) {
+			if (upper instanceof PosInfinity) {
 				result = true;
 			} else if (lower instanceof NegInfinity) {
 				result = true;
