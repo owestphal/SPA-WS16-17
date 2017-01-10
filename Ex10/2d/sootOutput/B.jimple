@@ -1,0 +1,60 @@
+class B extends java.lang.Object
+{
+/*B.java*/
+
+    void <init>()
+    {
+        B r0;
+
+        r0 := @this: B;
+/*r0:[-inf,inf]*/
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+/*r0:[-inf,inf]*/
+
+        return;
+/*r0:[-inf,inf]*/
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+
+        r0 := @parameter0: java.lang.String[];
+/*r0:[-inf,inf]*/
+
+        return;
+/*r0:[-inf,inf]*/
+    }
+
+    public void foo()
+    {
+        B r0;
+        java.io.PrintStream $r1, $r2;
+        int i2, i3;
+
+        r0 := @this: B;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-inf,inf] i3:[-inf,inf] r0:[-inf,inf]*/
+
+        i2 = 13 - 17;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[-inf,inf] r0:[-inf,inf]*/
+
+        i3 = 23 + i2;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+
+        $r1 = <java.lang.System: java.io.PrintStream out>;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+
+        virtualinvoke $r1.<java.io.PrintStream: void println(int)>(i3);
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(i2);
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+
+        return;
+/*$r1:[-inf,inf] $r2:[-inf,inf] i2:[-4,-4] i3:[19,19] r0:[-inf,inf]*/
+    }
+}
