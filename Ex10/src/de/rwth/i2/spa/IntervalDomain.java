@@ -57,7 +57,7 @@ public class IntervalDomain {
 		 */
 		String result = "";
 		for (Entry<String, Interval> entry : delta.entrySet()) {
-			result += " " + entry.getKey() + ":[" + entry.getValue().toString() + "]";
+			result += " " + entry.getKey() + ":" + entry.getValue().toString();
 		}
 		return result.trim();
 	}
