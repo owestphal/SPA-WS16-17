@@ -33,7 +33,7 @@ public class Interval {
 			Bound lower = ((NonEmptyInterval) this).getLowerBound();
 			Bound upper = ((NonEmptyInterval) this).getUpperBound();
 
-			if (lower instanceof PosInfinity && upper instanceof PosInfinity) {
+			if (upper instanceof PosInfinity) {
 				result = true;
 			} else if (lower instanceof NegInfinity) {
 				result = true;
@@ -170,7 +170,10 @@ public class Interval {
 		 * TODO return an interval representing the sum of intervals left and
 		 * right
 		 */
-
+		if(left instanceof EmptySet)
+			return right;
+		if(right instanceof EmptySet)
+			return left;
 		Interval result = new EmptyInterval();
 		if (left.isNonEmpty() && right.isNonEmpty()) {
 			Bound lower = Bound.plus(((NonEmptyInterval) left).getLowerBound(),
@@ -195,6 +198,10 @@ public class Interval {
 		 * TODO return an interval representing the difference of intervals left
 		 * and right
 		 */
+		if(left instanceof EmptySet)
+			return right;
+		if(right instanceof EmptySet)
+			return left;
 		Interval result = new EmptyInterval();
 		if (left.isNonEmpty() && right.isNonEmpty()) {
 			Bound lower = Bound.minus(((NonEmptyInterval) left).getLowerBound(),
@@ -219,7 +226,10 @@ public class Interval {
 		 * TODO return an interval representing the product of intervals left
 		 * and right
 		 */
-
+		if(left instanceof EmptySet)
+			return right;
+		if(right instanceof EmptySet)
+			return left;
 		if (left instanceof NonEmptyInterval && right instanceof NonEmptyInterval) {
 			// left = [x1,x2], right = [y1,y2]
 			Bound[] x = { ((NonEmptyInterval) left).getLowerBound(), ((NonEmptyInterval) left).getUpperBound() };

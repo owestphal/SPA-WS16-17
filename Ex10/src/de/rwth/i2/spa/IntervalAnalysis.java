@@ -43,6 +43,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 *
 		 * Hint: Assignments correspond to units of type AssignStmt.
 		 */
+		boolean fix = false;
 		if(unit instanceof AssignStmt){
 			AssignStmt assignUnit = (AssignStmt) unit;
 			Value leftOp = assignUnit.getLeftOp();
@@ -53,7 +54,13 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));			
 				copy(in,out);
 			}
-			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
+			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case				
+				Interval currentInterval = in.delta.get(rightOp.toString());
+				if(currentInterval instanceof EmptySet){
+					Unit debugUnit = graph.getPredsOf(unit).get(0);
+					IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
+					copy(preIntDom,in);
+				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));			
 				copy(in,out);
 			}
@@ -62,11 +69,22 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				Bound upperBound = new IntBound(0);
 				List<ValueBox> values = rightOp.getUseBoxes();
 				ListIterator<ValueBox> lit = values.listIterator();
+				
 				while (lit.hasNext()){
-					Value currentValue = lit.next().getValue();
+					Value currentValue = lit.next().getValue();			
+					Interval currentInterval = in.delta.get(currentValue.toString());
+					if(currentInterval instanceof EmptySet){
+						Unit debugUnit = graph.getPredsOf(unit).get(0);
+						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
+						copy(preIntDom,in);
+						fix = true;
+					}
 					if(currentValue instanceof Local){
 						lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
-						upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
+						if(fix)
+							upperBound = new PosInfinity();
+						else
+							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 					}else if(currentValue instanceof Immediate){
 						lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
 						upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -81,19 +99,33 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				
 				List<ValueBox> values = rightOp.getUseBoxes();
 				for(int i = 0; i < values.size();i++){
+					
+					Value currentValue = values.get(i).getValue();
+					
+					Interval currentInterval = in.delta.get(currentValue.toString());
+					if(currentInterval instanceof EmptySet){
+						Unit debugUnit = graph.getPredsOf(unit).get(0);
+						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
+						copy(preIntDom,in);
+						fix = true;
+					}
 					if(i==0){
-						Value currentValue = values.get(i).getValue();
 						if(currentValue instanceof Local){
-							lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+							if(fix)
+								lowerBound = new NegInfinity();	
+							else
+								lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
 							upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 						}
-					}else{
-						Value currentValue = values.get(i).getValue();
+					}else{						
 						if(currentValue instanceof Local){
-							lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
+							if(fix)
+								lowerBound = new NegInfinity();
+							else
+								lowerBound = Bound.minus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.minus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
 						}else if(currentValue instanceof Immediate){
 							lowerBound = Bound.minus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
@@ -111,6 +143,13 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				ListIterator<ValueBox> lit = values.listIterator();
 				while (lit.hasNext()){
 					Value currentValue = lit.next().getValue();
+					Interval currentInterval = in.delta.get(currentValue.toString());
+					if(currentInterval instanceof EmptySet){
+						Unit debugUnit = graph.getPredsOf(unit).get(0);
+						IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
+						copy(preIntDom,in);
+						fix = true;
+					}
 					if(currentValue instanceof Local){
 						lowerBound = Bound.mul(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 						upperBound = Bound.mul(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
@@ -165,9 +204,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * TODO Returns the initial domain element to start the fixed point
 		 * computation
 		 */
-		Interval initialIn = Interval.getLargestElement();
-		IntervalDomain initialInDom = new IntervalDomain(this.variables, initialIn);
-		return initialInDom;
+		return newInitialFlow();
 	}
 
 	@Override
@@ -177,8 +214,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * TODO Returns the initial domain element of all labels
 		 */
 		
-		Interval newInitial = Interval.getLargestElement();
-		IntervalDomain initialInDom = new IntervalDomain(this.variables, newInitial);
+		IntervalDomain initialInDom = new IntervalDomain(this.variables, new EmptySet());
 		return initialInDom;
 	}
 

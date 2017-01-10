@@ -7,13 +7,13 @@ class A extends java.lang.Object
         A r0;
 
         r0 := @this: A;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         specialinvoke r0.<java.lang.Object: void <init>()>();
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         return;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
     }
 
     public static void main(java.lang.String[])
@@ -21,9 +21,9 @@ class A extends java.lang.Object
         java.lang.String[] r0;
 
         r0 := @parameter0: java.lang.String[];
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
 
         return;
-/*r0:[[-inf,inf]]*/
+/*r0:[]*/
     }
 }
