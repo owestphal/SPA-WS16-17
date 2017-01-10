@@ -15,6 +15,10 @@ public class IntervalDomain {
 
 	public TreeMap<String, Interval> delta;
 
+	public IntervalDomain() {
+		delta = new TreeMap<String, Interval>();
+	}
+
 	public IntervalDomain(Set<Value> variables, Interval initialInterval) {
 
 		/*
@@ -25,6 +29,10 @@ public class IntervalDomain {
 		for (Value var : variables) {
 				delta.put(var.toString(), initialInterval);
 		}
+	}
+
+	public boolean isEmpty() {
+		return delta.isEmpty();
 	}
 
 	public boolean equals(Object other) {
@@ -68,13 +76,22 @@ public class IntervalDomain {
 		 * TODO return the least upper bound of interval domain elements this
 		 * and other
 		 */
+		IntervalDomain result;
 
-		BiConsumer<String, Interval> computeLubWithOther = (k, v) -> {
-			Interval i = other.delta.get(k);
-			v = v.lub(i);
-		};
-		this.delta.forEach(computeLubWithOther);
-		return this;
+		if (this.isEmpty()) {
+			result = other;
+		} else if (other.isEmpty()) {
+			result = this;
+		} else {
+			BiConsumer<String, Interval> computeLubWithOther = (k, v) -> {
+				Interval i = other.delta.get(k);
+				v = v.lub(i);
+			};
+			this.delta.forEach(computeLubWithOther);
+			result = this;
+		}
+
+		return result;
 	}
 
 	public IntervalDomain widen(IntervalDomain other) {
@@ -82,11 +99,21 @@ public class IntervalDomain {
 		/*
 		 * TODO return the widening of interval domain elements this and other
 		 */
-		BiConsumer<String, Interval> computeWidenWithOther = (k, v) -> {
-			Interval i = other.delta.get(k);
-			v = v.widen(i);
-		};
-		this.delta.forEach(computeWidenWithOther);
-		return this;
+
+		IntervalDomain result;
+
+ 		if (this.isEmpty()) {
+ 			result = other;
+ 		} else if (other.isEmpty()) {
+ 			result = this;
+ 		} else {
+			BiConsumer<String, Interval> computeWidenWithOther = (k, v) -> {
+				Interval i = other.delta.get(k);
+				v = v.widen(i);
+			};
+			this.delta.forEach(computeWidenWithOther);
+			result = this;
+		}
+		return result;
 	}
 }
