@@ -48,20 +48,20 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 			AssignStmt assignUnit = (AssignStmt) unit;
 			Value leftOp = assignUnit.getLeftOp();
 			Value rightOp = assignUnit.getRightOp();
-			
+
 			if(rightOp instanceof Immediate){												//TODO: Nasty Type Collisions possible here currently we support only IntBound for Constants
 				Bound bounds = new IntBound(Integer.valueOf(rightOp.toString()));
-				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));			
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(bounds, bounds));
 				copy(in,out);
 			}
-			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case				
+			if(rightOp instanceof Local){													//TODO: We never get here, I changed the ExSixOne.java and compiled it in order to get here, but we still never enter this case
 				Interval currentInterval = in.delta.get(rightOp.toString());
 				if(currentInterval instanceof EmptyInterval){
 					Unit debugUnit = graph.getPredsOf(unit).get(0);
 					IntervalDomain preIntDom = this.unitToBeforeFlow.get(debugUnit);
 					copy(preIntDom,in);
 				}
-				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));			
+				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), in.delta.get(rightOp.toString()));
 				copy(in,out);
 			}
 			if(rightOp instanceof AddExpr){
@@ -69,9 +69,9 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 				Bound upperBound = new IntBound(0);
 				List<ValueBox> values = rightOp.getUseBoxes();
 				ListIterator<ValueBox> lit = values.listIterator();
-				
+
 				while (lit.hasNext()){
-					Value currentValue = lit.next().getValue();			
+					Value currentValue = lit.next().getValue();
 					Interval currentInterval = in.delta.get(currentValue.toString());
 					if(currentInterval instanceof EmptyInterval){
 						Unit debugUnit = graph.getPredsOf(unit).get(0);
@@ -91,17 +91,17 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 					}
 				}
 				in.delta.replace(leftOp.toString(), in.delta.get(leftOp.toString()), new NonEmptyInterval(lowerBound, upperBound));
-				copy(in,out);			
+				copy(in,out);
 			}
 			if(rightOp instanceof SubExpr){
 				Bound lowerBound = new IntBound(0);
 				Bound upperBound = new IntBound(0);
-				
+
 				List<ValueBox> values = rightOp.getUseBoxes();
 				for(int i = 0; i < values.size();i++){
-					
+
 					Value currentValue = values.get(i).getValue();
-					
+
 					Interval currentInterval = in.delta.get(currentValue.toString());
 					if(currentInterval instanceof EmptyInterval){
 						Unit debugUnit = graph.getPredsOf(unit).get(0);
@@ -112,7 +112,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 					if(i==0){
 						if(currentValue instanceof Local){
 							if(fix)
-								lowerBound = new NegInfinity();	
+								lowerBound = new NegInfinity();
 							else
 								lowerBound = Bound.plus(lowerBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getLowerBound());
 							upperBound = Bound.plus(upperBound, ((NonEmptyInterval) in.delta.get(currentValue.toString())).getUpperBound());
@@ -120,7 +120,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 							lowerBound = Bound.plus(lowerBound, new IntBound(Integer.valueOf(currentValue.toString())));
 							upperBound = Bound.plus(upperBound, new IntBound(Integer.valueOf(currentValue.toString())));
 						}
-					}else{						
+					}else{
 						if(currentValue instanceof Local){
 							if(fix)
 								lowerBound = new NegInfinity();
@@ -185,7 +185,7 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		 * merge: 1) Use the least upper bound between two interval domain
 		 * elements 2) Use the merge operator defined in SPA lecture 7
 		 */
-		
+
 		if (useWidening) {
 
 			// TODO implement merge with widening here
@@ -213,8 +213,8 @@ public class IntervalAnalysis extends ForwardFlowAnalysis<Unit, IntervalDomain> 
 		/*
 		 * TODO Returns the initial domain element of all labels
 		 */
-		
-		IntervalDomain emptySet = new IntervalDomain(this.variables, new EmptyInterval());
+
+		IntervalDomain emptySet = new IntervalDomain();
 		return emptySet;
 	}
 
