@@ -36,16 +36,16 @@
 $$p_1 = x>y \text{, }p_2 = x>3 \text{, }p_3 = y \leq 2 \text{, } p_4 = x = 2$$
 \subsection*{a)}
 $$Q_1 = \{p_1\}\text{, } Q_2 =  \{p_3\}$$
-$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = p_1 \wedge p_2 \wedge p_3 \wedge \lnot p_4$$
-$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = p_1 \wedge p_2 \wedge p_3 \wedge \lnot p_4$$
+$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = p_1 \wedge p_3 $$
+$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = true$$
 \subsection*{b)}
 $$Q_1 = \{p_1,p_2\}\text{, } Q_2 =  \{p_2,p_4\}$$
 $$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = false$$
 $$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = \overline{(p_1 \wedge p_2) \vee (p_2 \wedge p_4)} = \overline{p_2 \wedge (p_1 \vee p_4)} = p_2$$
 \subsection*{c)}
 $$Q_1 = \{p_1,\lnot p_2\}\text{, } Q_2 =  \{\lnot p_3\}$$
-$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = p_1 \wedge \lnot p_2 \wedge \lnot p_3$$
-$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = \overline{(p_1 \wedge \lnot p_2) \vee \lnot p_3} = \overline{(p_1 \vee \lnot p_3) \wedge (\lnot p2 \vee \lnot p_3)} = \lnot p_3$$
+$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = false$$
+$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = \overline{(p_1 \wedge \lnot p_2) \vee \lnot p_3} = \overline{(p_1 \vee \lnot p_3) \wedge (\lnot p_2 \vee \lnot p_3)} = true$$
 \section*{Exercise 2}
 
 \subsection*{a)}
@@ -71,5 +71,5 @@ Refine $Abs(P)$ to $Abs(P')$ where
 $$P' = P \cup \lbrace p_1,p_2,p_3,p_4 \rbrace $$
 %$$\langle 0, true \rangle \Rightarrow \langle 1, p_0 \wedge \lnot p_1 \rangle \Rightarrow \langle 2, p_0 \wedge \lnot p_1 \wedge p_2 \rangle \Rightarrow \langle 3, \lnot p_0 \wedge p_1 \wedge p_2 \rangle \Rightarrow \langle 4, \lnot p_0 \wedge p_1 \wedge p_2 \wedge p_3 \rangle$$
 \subsection*{e)}
-As one can see in the refined transition system excerpt below, label 5 is no longer reachable after the refinement. So no further refinement steps are needed.
+As one can see in the refined transition system excerpt below, label 5 is no longer reachable after the refinement. So no further refinement steps are needed.    
 \end{document}
