@@ -33,12 +33,19 @@
 
 \begin{document}
 \section*{Exercise 1}
-$$p_1 = x>y \text{, }$$
+$$p_1 = x>y \text{, }p_2 = x>3 \text{, }p_3 = y \leq 2 \text{, } p_4 = x = 2$$
 \subsection*{a)}
-
+$$Q_1 = \{p_1\}\text{, } Q_2 =  \{p_3\}$$
+$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = p_1 \wedge p_2 \wedge p_3 \wedge \lnot p_4$$
+$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = p_1 \wedge p_2 \wedge p_3 \wedge \lnot p_4$$
 \subsection*{b)}
+$$Q_1 = \{p_1,p_2\}\text{, } Q_2 =  \{p_2,p_4\}$$
+$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = false$$
+$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = \overline{(p_1 \wedge p_2) \vee (p_2 \wedge p_4)} = \overline{p_2 \wedge (p_1 \vee p_4)} = p_2$$
 \subsection*{c)}
-
+$$Q_1 = \{p_1,\lnot p_2\}\text{, } Q_2 =  \{\lnot p_3\}$$
+$$Q_1 \sqcap Q_2 = \overline{Q_1 \wedge Q_2} = p_1 \wedge \lnot p_2 \wedge \lnot p_3$$
+$$Q_1 \sqcup Q_2 = \overline{Q_1 \vee Q_2} = \overline{(p_1 \wedge \lnot p_2) \vee \lnot p_3} = \overline{(p_1 \vee \lnot p_3) \wedge (\lnot p2 \vee \lnot p_3)} = \lnot p_3$$
 \section*{Exercise 2}
 
 \subsection*{a)}
