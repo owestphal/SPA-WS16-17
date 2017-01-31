@@ -33,11 +33,11 @@
 
 \begin{document}
 \section*{Exercise 1}
-$S:=(Lab,E,F,(D,\sqsubseteq),l,\varphi)$ is determined by:
+$S:=(Lab,E,F,(D,\sqsubseteq),\iota,\varphi)$ is determined by:
 \begin{itemize}
 \item $D:=\{\delta | \delta: Var_c \rightarrow \mathbb{Z} \cup \{\bot, \top\}\}$
 \item $\bot \sqsubseteq z \sqsubseteq \top$ for every $z \in \mathbb{Z}$
-\item $l:= \delta_{\top} \in D$
+\item $\iota := \delta_{\top} \in D$
 \item For each $l \in Lab \\ \{l_c,l_n,l_x,l_r | (l_c,l_r,l_x,l_r) \in iflow\}$,
 \[
  \varphi_l(\delta) := 
