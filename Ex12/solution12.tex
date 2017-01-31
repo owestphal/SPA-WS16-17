@@ -1,0 +1,70 @@
+\documentclass[fleqn,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools} %loads amsmath
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\usepackage{arydshln}
+\usepackage{stmaryrd}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage[margin=2cm]{geometry}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\usepackage{ebproof}
+
+\tikzset{initial text={}}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{26pt}
+\pagestyle{fancy}
+\lhead{Static Program Analysis WS 2016/17 -- Series 12 \\ \small{Igor Dudschenko (296764), Oliver Westphal (358321)}}
+\rhead{}
+
+\newcommand\dbrackets[1]{\llbracket #1 \rrbracket}
+
+\setlength{\parindent}{0cm}
+\newcommand\note[1]{\textcolor{red}{#1}}
+
+\begin{document}
+\section*{Exercise 1}
+$S:=(Lab,E,F,(D,\sqsubseteq),l,\varphi)$ is determined by:
+\begin{itemize}
+\item $D:=\{\delta | \delta: Var_c \rightarrow \mathbb{Z} \cup \{\bot, \top\}\}$
+\item $\bot \sqsubseteq z \sqsubseteq \top$ for every $z \in \mathbb{Z}$
+\item $l:= \delta_{\top} \in D$
+\item For each $l \in Lab \\ \{l_c,l_n,l_x,l_r | (l_c,l_r,l_x,l_r) \in iflow\}$,
+\[
+ \varphi_l(\delta) := 
+  \begin{cases} 
+   \delta & \text{if } B^{l} = skip \text{ or } B^{l} \in BExp \\
+   \delta [x \mapsto val_{\delta}(a)]       & \text{if } B^l = (x:=a)
+  \end{cases}
+\]
+\item Whenever $p$ $c$ contains $[call \text{ } P(a,z)]^{l_c}_{l_r}$ and $[proc \text{ } P(val \text{ } x,res \text{ } y)]^{l_n}$ is $c \text{ } [end]^{l_x}$,
+\begin{itemize}
+\item call/entry: set input and reset output intervals
+\item exit/return: reset intervals (x,y possible used in calling context) and set interval according to return value
+\end{itemize}
+\end{itemize}
+\section*{Exercise 2}
+\subsection*{a)}
+$$mop(S) \sqsubseteq mvp(S)$$
+This cannot hold in the interprocedural case, since $Path(l) \nsubseteq VPath(l)$ for every $l \in Lab$.
+\subsection*{b)}
+$$mvp(S) \sqsubseteq mop(S)$$
+This holds, since $VPath(l) \subseteq Path(l)$ for every $l \in Lab$.
+\subsection*{c)}
+$$mop(S) \sqsubseteq fix(S)$$
+\subsection*{d)}
+$$fix(S) \sqsubseteq mop(S)$$
+\subsection*{e)}
+$$mvp(S) \sqsubseteq fix(S)$$
+\subsection*{f)}
+$$fix(S) \sqsubseteq mvp(S)$$
+\end{document}
