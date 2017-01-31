@@ -46,10 +46,17 @@ $S:=(Lab,E,F,(D,\sqsubseteq),l,\varphi)$ is determined by:
    \delta [x \mapsto val_{\delta}(a)]       & \text{if } B^l = (x:=a)
   \end{cases}
 \]
+where
+$$val_{\delta}(x):=\delta(x), val_{\delta}(z):=[z,z]$$
+$$val_{\delta}(a_1+a_2):=val_{\delta}(a_1) \oplus val_{\delta}(a_2)$$
+$$val_{\delta}(a_1-a_2):=val_{\delta}(a_1) \ominus val_{\delta}(a_2)$$
+$$val_{\delta}(a_1*a_2):=val_{\delta}(a_1) \odot val_{\delta}(a_2)$$
 \item Whenever $p$ $c$ contains $[call \text{ } P(a,z)]^{l_c}_{l_r}$ and $[proc \text{ } P(val \text{ } x,res \text{ } y)]^{l_n}$ is $c \text{ } [end]^{l_x}$,
 \begin{itemize}
 \item call/entry: set input and reset output intervals
+$$\varphi_{l_c}(\delta) := \delta [x \mapsto val_{\delta}(a),y \mapsto \top], \varphi_{l_n}(\delta) := \delta$$
 \item exit/return: reset intervals (x,y possible used in calling context) and set interval according to return value
+$$\varphi_{l_x}(\delta) := \delta, \varphi_{l_r}(\delta ', \delta) := \delta '[x \mapsto \delta(x), y \mapsto \delta(y),z\mapsto \delta '(y)] $$
 \end{itemize}
 \end{itemize}
 \section*{Exercise 2}
