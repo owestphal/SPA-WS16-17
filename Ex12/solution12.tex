@@ -68,10 +68,15 @@ $$mvp(S) \sqsubseteq mop(S)$$
 This holds, since $VPath(l) \subseteq Path(l)$ for every $l \in Lab$.
 \subsection*{c)}
 $$mop(S) \sqsubseteq fix(S)$$
+This holds, since from a), b) and e) we know: $mop(S) \not\sqsubseteq mvp(S)$, $mvp(S) \sqsubseteq mop(S)$ and $mvp(S) \sqsubseteq fix(S)$, therefore $mvp(S) \sqsubseteq mop(S) \sqsubseteq fix(S)$.
 \subsection*{d)}
 $$fix(S) \sqsubseteq mop(S)$$
+If this property holds, than $fix(S) \sqsubseteq mop(S)$ and (as we showed in c)) $mop(S) \sqsubseteq fix(S)$ hold. But this would mean that $fix(S) = mop(S)$, which cannot be true since we already know from the lecture (Example 6.2) that this property doesn't hold in the intraprocedural part.
 \subsection*{e)}
 $$mvp(S) \sqsubseteq fix(S)$$
+This holds trivially from Theorem 20.2.
+Also: we know from b) and c): $mvp(S) \sqsubseteq mop(S)$ and $mop(S) \sqsubseteq fix(S)$, therefore $mvp(S) \sqsubseteq mop(S) \sqsubseteq fix(S)$.
 \subsection*{f)}
 $$fix(S) \sqsubseteq mvp(S)$$
+This property only holds if all $\varphi_l$ are distributive, which is generally not given in S.
 \end{document}
